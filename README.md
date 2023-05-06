@@ -1,5 +1,14 @@
 # yuzu.party
 
+```
+__  __     __  __     ______     __  __     ______   ______     ______     ______   __  __
+/\ \_\ \   /\ \/\ \   /\___  \   /\ \/\ \   /\  == \ /\  __ \   /\  == \   /\__  _\ /\ \_\ \
+\ \____ \  \ \ \_\ \  \/_/  /__  \ \ \_\ \  \ \  _-/ \ \  __ \  \ \  __<   \/_/\ \/ \ \____ \
+\/\_____\  \ \_____\   /\_____\  \ \_____\  \ \_\    \ \_\ \_\  \ \_\ \_\    \ \_\  \/\_____\
+ \/_____/   \/_____/   \/_____/   \/_____/   \/_/     \/_/\/_/   \/_/ /_/     \/_/   \/_____/
+
+```
+
 Party planning software open(-sourced) to all. Check it out at [yuzu.party](https://yuzu.party). Built with the legendary [Fkit stack](https://www.youtube.com/watch?v=rFP7rUYtOOg).
 
 ## Development
