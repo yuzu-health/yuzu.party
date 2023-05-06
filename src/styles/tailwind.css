@@ -67,10 +67,9 @@
 		-webkit-appearance: none;
 		-moz-appearance: none;
 		appearance: none;
-
-		&:invalid::-webkit-datetime-edit {
-			@apply text-primary text-opacity-80;
-		}
+	}
+	[type='datetime-local']:invalid::-webkit-datetime-edit {
+		@apply text-primary text-opacity-30;
 	}
 
 	select:invalid {
