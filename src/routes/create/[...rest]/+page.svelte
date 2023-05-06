@@ -1,0 +1,102 @@
+<script lang="ts">
+	import Camera from '$lib/components/icons/Camera.svelte';
+	import X from '$lib/components/icons/X.svelte';
+	import store from './store';
+	$: src = $store.files?.[0] ? URL.createObjectURL($store.files?.[0]) : $store.image;
+
+	const generateDateTimeLocal = (date?: Date | string) => {
+		const d = date ? new Date(date) : undefined;
+		if (!d) return '';
+		return new Date(d.getTime() - d.getTimezoneOffset() * 60000).toISOString().slice(0, 16);
+	};
+
+	const minDate = generateDateTimeLocal(new Date());
+</script>
+
+<svelte:head>
+	<title>Create</title>
+</svelte:head>
+
+<div class="">
+	<div class="relative border-b border-panel">
+		{#if src}
+			<button
+				type="button"
+				class="absolute top-1 right-1 z-10"
+				on:click={() => {
+					$store.files = undefined;
+					$store.image = '';
+				}}
+			>
+				<X class="w-5 h-5" />
+			</button>
+		{/if}
+		<label class="relative">
+			{#if src}
+				<img
+					class="bg-dots h-56 w-full max-w-[32rem] object-cover text-primary text-opacity-30"
+					src={$store.files?.[0] ? URL.createObjectURL($store.files?.[0]) : $store.image}
+					alt="Cover"
+				/>
+			{:else}
+				<div
+					class="bg-dots h-56 w-full max-w-[32rem] text-primary text-opacity-30 flex items-center justify-center cursor-pointer"
+				>
+					<Camera class="w-6 h-6 text-opacity-100 text-primary" />
+				</div>
+			{/if}
+			<input class="hidden" name="image" type="file" accept="image/*" bind:files={$store.files} />
+		</label>
+	</div>
+
+	<div class="flex flex-col">
+		<label class="flex border-b border-panel px-2">
+			<div class="font-medium w-28 py-2 shrink-0">Name</div>
+			<input class="w-full" required bind:value={$store.name} maxlength="50" placeholder="Name" />
+		</label>
+
+		<label class="flex border-b border-panel items-center px-2">
+			<div class="font-medium w-28 py-2 shrink-0">Date</div>
+			<input
+				value={generateDateTimeLocal($store.date)}
+				on:input={(e) => {
+					// @ts-ignore
+					const utcTime = e.target.valueAsNumber + new Date().getTimezoneOffset() * 60 * 1000;
+					if (utcTime > new Date().getTime()) {
+						store.update((store) => ({ ...store, date: utcTime }));
+					} else {
+						// @ts-ignore
+						e.target.value = '';
+					}
+				}}
+				min={minDate}
+				class="w-full text-left h-10 accent-primary"
+				type="datetime-local"
+				required
+			/>
+		</label>
+
+		<label class="flex border-b border-panel px-2">
+			<div class="font-medium w-28 py-2 shrink-0">Location</div>
+			<input class="w-full" bind:value={$store.location} placeholder="Location" maxlength="60" />
+		</label>
+
+		<label
+			data-tooltip="Users have to be manually approved before they could RSVP"
+			class="flex items-center border-b border-panel px-2 pr-3"
+		>
+			<div class="font-medium py-2 shrink-0">Require approval to join?</div>
+			<input class="ml-auto" bind:checked={$store.requireApproval} type="checkbox" />
+		</label>
+
+		<label class="flex flex-grow py-2 px-2 h-full">
+			<div class="font-medium w-28 shrink-0">Description</div>
+			<textarea
+				class="w-full resize-none h-full pb-1"
+				bind:value={$store.description}
+				rows="3"
+				placeholder="Description"
+			/>
+		</label>
+	</div>
+</div>

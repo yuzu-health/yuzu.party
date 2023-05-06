@@ -1,0 +1,75 @@
+/* Doesn't working with inputs because pseudoelements are rendered children nodes of parent. Inputs can't have children nodes. */
+@layer components {
+  @keyframes tooltip-fade-in {
+    0% {
+      opacity: 0;
+      transform: translate(-50%, calc(-100% + 10px));
+    }
+
+    100% {
+      opacity: 1;
+      transform: translate(-50%, -100%);
+    }
+  }
+
+  [data-tooltip] {
+    @apply hover:will-change-transform;
+    /* will-change: transform, opacity; */
+  }
+
+  .trigger-tooltip:hover [data-tooltip],
+  .trigger-tooltip:hover .top[data-tooltip],
+  [data-tooltip]:hover,
+  .top[data-tooltip]:hover {
+    @apply relative;
+
+    &::before {
+      @apply bg-primary text-light py-1.5 px-2 text-xs;
+      @apply pointer-events-none absolute top-[-12px] left-1/2 text-center content-[attr(data-tooltip)];
+      @apply z-10 min-w-0 max-w-[150px] whitespace-pre-line;
+      width: max-content;
+      animation: tooltip-fade-in 0.2s cubic-bezier(0.4, 0, 0.2, 1) both;
+    }
+
+    &::after {
+      @apply text-primary pointer-events-none absolute top-[-2px] left-1/2 z-10 text-[10px] content-['▼'];
+      animation: tooltip-fade-in 0.2s cubic-bezier(0.4, 0, 0.2, 1) both;
+    }
+  }
+
+  @keyframes tooltip-fade-in-left {
+    0% {
+      opacity: 0;
+      transform: translate(calc(-100% + 10px), -50%);
+    }
+
+    100% {
+      opacity: 1;
+      transform: translate(-100%, -50%);
+    }
+  }
+
+  .trigger-tooltip:hover .left[data-tooltip],
+  .left[data-tooltip]:hover {
+    &::before {
+      @apply left-[-12px] top-1/2;
+      animation: tooltip-fade-in-left 0.2s cubic-bezier(0.4, 0, 0.2, 1) both;
+    }
+
+    &::after {
+      @apply left-[-4px] top-1/2 content-['▶'];
+      animation: tooltip-fade-in-left 0.2s cubic-bezier(0.4, 0, 0.2, 1) both;
+    }
+  }
+
+  .trigger-tooltip:hover .tooltip-accent[data-tooltip],
+  .tooltip-accent[data-tooltip]:hover {
+    &::before {
+      @apply bg-accent text-light;
+    }
+
+    &::after {
+      @apply text-accent;
+    }
+  }
+}
