@@ -9,6 +9,7 @@
 	import { timeSince } from '$lib/utils';
 	import ProfilePic from '$lib/components/ProfilePic.svelte';
 	import Submit from './Submit.svelte';
+	import Trash from '$lib/components/icons/Trash.svelte';
 
 	export let data;
 
@@ -22,6 +23,7 @@
 	let messageLimit = 30;
 	let showScrollBottom = false;
 	let loadingMessage = 'fetching...';
+	let deletedMessages: { [key: string]: boolean } = {};
 
 	const fetchMessages = async () => {
 		loadingMessage = 'fetching...';
@@ -64,6 +66,19 @@
 		});
 
 		return () => unsubscribe();
+	};
+
+	const onDeleteMessage = async (blockId: string, messageId: string) => {
+		deletedMessages[messageId] = true;
+		try {
+			await fetch('/api/party/message', {
+				method: 'DELETE',
+				body: JSON.stringify({ partyId: data.party?.id, blockId, messageId })
+			});
+		} catch (e) {
+			deletedMessages[messageId] = false;
+			console.error(e);
+		}
 	};
 
 	$: {
@@ -118,9 +133,9 @@
 	{:else if messages.length}
 		<div in:fade|local={{ delay: 300 }}>
 			{#each messages.slice(-messageLimit) as message (message.id)}
-				{#if data.party?.attendees?.[message.uid]?.status !== 'block'}
+				{#if data.party?.attendees?.[message.uid]?.status !== 'block' && !deletedMessages[message.id]}
 					<div
-						class="flex border-y -mt-[1px] border-panel"
+						class="message flex border-y -mt-[1px] border-panel"
 						class:pointer-events-none={message.hidden}
 					>
 						<ProfilePic
@@ -128,20 +143,28 @@
 							name={data.party?.attendees?.[message.uid]?.name || ''}
 							class="shrink-0 h-16 w-16 border-b border-panel bg-dots object-cover -mb-[1px]"
 						/>
-						<div class="p-2 -mb-[1px] border-l border-panel">
-							<div class="-mt-1">
+						<div class="p-2 -mb-[1px] border-l border-panel w-full">
+							<div class="flex items-center gap-2 w-full flex-wrap">
 								<span class="text-sm font-semibold" class:bg-primary={message.hidden}>
 									{data.party?.attendees?.[message.uid]?.name || '???'}
 								</span>
 								{#if data.party?.hosts.includes(message.uid)}
-									<span class="text-xs font-medium text-accent"> HOST </span>
+									<span class="text-sm font-medium text-accent"> HOST </span>
 								{/if}
 								<span
-									class="text-sm ml-1 font-light text-primary text-opacity-50"
+									class="text-sm font-light text-primary text-opacity-50"
 									class:bg-primary={message.hidden}
 								>
 									{timeSince(new Date(message.timestamp))} ago
 								</span>
+								{#if data.party?.hosts.includes(data.uid) || (data.uid === message.uid && !message.alert)}
+									<button
+										class="delete-button ml-auto transition-opacity active:!opacity-50"
+										on:click={() => onDeleteMessage(message.blockId, message.id)}
+									>
+										<Trash class="h-3 w-3" />
+									</button>
+								{/if}
 							</div>
 							{#if message.alert}
 								<div class="mt-1 opacity-50 italic">{message.alert}</div>
@@ -180,3 +203,13 @@
 {/if}
 
 <Submit class="sticky bottom-0 z-10  h-12 shrink-0 flex" />
+
+<style>
+	.delete-button {
+		opacity: 0;
+	}
+
+	.message:hover .delete-button {
+		opacity: 100;
+	}
+</style>

@@ -50,15 +50,24 @@ export const DELETE = async ({ request, locals }) => {
 		return new Response('Missing parameters', { status: 400 });
 	}
 
-	const ref = db.collection('parties').doc(partyId).collection('blocks').doc(blockId);
+	const ref = db.collection('parties').doc(partyId);
 	const snapshot = await ref.get();
 	const party = snapshot.data();
 
-	if (!party?.hosts.includes(locals.session?.uid)) {
+	const blockSnapshot = await ref.collection('blocks').doc(blockId).get();
+	const block = blockSnapshot.data();
+
+	if (
+		!party?.hosts.includes(locals.session?.uid) &&
+		block?.messages[messageId]?.uid !== locals.session?.uid
+	) {
 		return new Response('Unauthorized', { status: 401 });
 	}
 
-	await ref.update({ [`messages.${messageId}`]: FieldValue.delete() });
+	await ref
+		.collection('blocks')
+		.doc(blockId)
+		.update({ [`messages.${messageId}`]: FieldValue.delete() });
 
 	return new Response('OK');
 };
