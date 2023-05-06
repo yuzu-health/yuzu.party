@@ -1,16 +1,19 @@
 <script lang="ts">
+	import { slide } from 'svelte/transition';
 	import Camera from '$lib/components/icons/Camera.svelte';
 	import X from '$lib/components/icons/X.svelte';
 	import store from './store';
 	$: src = $store.files?.[0] ? URL.createObjectURL($store.files?.[0]) : $store.image;
 
-	const generateDateTimeLocal = (date?: Date | string) => {
+	const generateDateTimeLocal = (date?: Date | number) => {
 		const d = date ? new Date(date) : undefined;
 		if (!d) return '';
 		return new Date(d.getTime() - d.getTimezoneOffset() * 60000).toISOString().slice(0, 16);
 	};
 
 	const minDate = generateDateTimeLocal(new Date());
+
+	let showEnd = !!$store.end;
 </script>
 
 <svelte:head>
@@ -55,26 +58,64 @@
 			<input class="w-full" required bind:value={$store.name} maxlength="50" placeholder="Name" />
 		</label>
 
-		<label class="flex border-b border-panel items-center px-2">
-			<div class="font-medium w-28 py-2 shrink-0">Date</div>
-			<input
-				value={generateDateTimeLocal($store.date)}
-				on:input={(e) => {
-					// @ts-ignore
-					const utcTime = e.target.valueAsNumber + new Date().getTimezoneOffset() * 60 * 1000;
-					if (utcTime > new Date().getTime()) {
-						store.update((store) => ({ ...store, date: utcTime }));
-					} else {
+		<div class="flex overflow-hidden">
+			<label class="flex border-b border-panel items-center px-2 w-full">
+				<div class="font-medium w-28 py-2 shrink-0">Start</div>
+				<input
+					value={generateDateTimeLocal($store.date)}
+					on:input={(e) => {
 						// @ts-ignore
-						e.target.value = '';
+						const utcTime = e.target.valueAsNumber + new Date().getTimezoneOffset() * 60 * 1000;
+						if (utcTime > new Date().getTime()) {
+							store.update((store) => ({ ...store, date: utcTime }));
+						} else {
+							// @ts-ignore
+							e.target.value = '';
+						}
+					}}
+					min={minDate}
+					class="w-full text-left h-10 accent-primary"
+					type="datetime-local"
+					required
+				/>
+			</label>
+			<button
+				type="button"
+				class="whitespace-pre text-sm font-medium border-b px-2 border-panel"
+				class:disabled={!$store.date}
+				on:click={() => {
+					showEnd = !showEnd;
+					if (!showEnd) {
+						store.update((store) => ({ ...store, end: undefined }));
 					}
 				}}
-				min={minDate}
-				class="w-full text-left h-10 accent-primary"
-				type="datetime-local"
-				required
-			/>
-		</label>
+			>
+				{showEnd ? '-' : '+'} End
+			</button>
+		</div>
+
+		{#if showEnd}
+			<label in:slide class="flex border-b border-panel items-center px-2 w-full">
+				<div class="font-medium w-28 py-2 shrink-0">End</div>
+				<input
+					value={generateDateTimeLocal($store.end)}
+					on:input={(e) => {
+						// @ts-ignore
+						const utcTime = e.target.valueAsNumber + new Date().getTimezoneOffset() * 60 * 1000;
+						if (utcTime > new Date().getTime()) {
+							store.update((store) => ({ ...store, end: utcTime }));
+						} else {
+							// @ts-ignore
+							e.target.value = '';
+						}
+					}}
+					min={generateDateTimeLocal($store.date)}
+					class="w-full text-left h-10 accent-primary"
+					type="datetime-local"
+					required
+				/>
+			</label>
+		{/if}
 
 		<label class="flex border-b border-panel px-2">
 			<div class="font-medium w-28 py-2 shrink-0">Location</div>

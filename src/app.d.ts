@@ -19,7 +19,8 @@ declare global {
 	interface Party {
 		id: string;
 		name: string;
-		date: string;
+		date: number;
+		end?: number;
 		location: string;
 		description: string;
 		image: string;

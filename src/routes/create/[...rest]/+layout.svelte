@@ -31,7 +31,7 @@
 					formData.append('image', compressedFiled);
 				}
 			} else {
-				formData.append(key, JSON.stringify(value));
+				formData.append(key, JSON.stringify(value || null));
 			}
 		}
 
@@ -71,7 +71,7 @@
 				class:pointer-events-none={!ready}
 				class:loading
 			>
-				<span class:opacity-30={!ready}>Create</span>
+				<span class:opacity-30={!ready}>{data.party ? 'Edit' : 'Create'}</span>
 			</button>
 		{/if}
 	</div>

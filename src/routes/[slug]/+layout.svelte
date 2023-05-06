@@ -60,6 +60,29 @@
 			add('Link copied to clipboard');
 		}
 	};
+
+	const generateDateString = (date?: number) =>
+		!date
+			? ''
+			: new Date(date).toLocaleString(undefined, {
+					weekday: 'short',
+					month: 'long',
+					day: 'numeric',
+					hour: 'numeric',
+					minute: 'numeric'
+			  });
+
+	$: startTime = data.party?.date ? generateDateString(data.party?.date) : 'hidden';
+	$: endTime =
+		startTime.split(' at ')[0] === generateDateString(data.party?.end).split(' at ')[0]
+			? generateDateString(data.party?.end).split(' at ')[1]
+			: generateDateString(data.party?.end);
+
+	$: timezone = new Date()
+		?.toLocaleDateString(undefined, { day: '2-digit', timeZoneName: 'long' })
+		?.substring(4)
+		?.match(/\b(\w)/g)
+		?.join('');
 </script>
 
 <svelte:head>
@@ -89,20 +112,17 @@
 			<div class="p-4 flex flex-col gap-4">
 				<div class="font-semibold text-xl whitespace-pre-wrap">{data.party?.name}</div>
 				{#if data.party?.date}
-					<div class="text-primary text-opacity-50 flex items-center min-w-[50%]">
+					<div class="text-primary text-opacity-50 flex items-center min-w-[50%] flex-wrap">
 						<Calendar class="w-4 h-4 mr-2" />
-						{#if data.party?.date === 'hidden'}
-							<span class="">Hidden - RSVP to see</span>
-						{:else}
-							{new Date(data.party?.date).toLocaleString('en-US', {
-								weekday: 'long',
-								month: 'long',
-								day: 'numeric',
-								hour: 'numeric',
-								minute: 'numeric',
-								timeZoneName: 'short'
-							})}
+
+						{startTime}
+
+						{#if data.party?.end}
+							<span class="mx-2">-</span>
+							{endTime}
 						{/if}
+
+						({timezone})
 					</div>
 				{/if}
 				{#if data.party?.location}
