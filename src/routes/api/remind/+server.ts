@@ -7,7 +7,7 @@ export const config: Config = {
 	split: true
 };
 
-export const load = async ({ url }) => {
+export const GET = async ({ url }) => {
 	const now = new Date();
 	now.setHours(0);
 	now.setMinutes(0);
@@ -54,5 +54,5 @@ export const load = async ({ url }) => {
 		await db.collection('parties').doc(party.id).update({ alerted: true });
 	});
 
-	return {};
+	return new Response('OK');
 };
