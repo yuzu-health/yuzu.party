@@ -1,5 +1,11 @@
 import { db, auth } from '$lib/server/firebase';
 import { text } from '$lib/server/twilio';
+import type { Config } from '@sveltejs/kit';
+
+export const config: Config = {
+	runtime: 'nodejs18.x',
+	split: true
+};
 
 export const GET = async () => {
 	const now = new Date();
@@ -35,16 +41,18 @@ export const GET = async () => {
 		if (!party.attendees || party.alerted) return;
 
 		for (const [uid, { status }] of Object.entries(party.attendees)) {
-			if (status === 'no') continue;
+			if (!['yes', 'maybe'].includes(status)) continue;
 
+			console.log('uid:', uid);
 			const user = await auth.getUser(uid);
+			console.log('user:', user);
 
 			await text(
 				user.phoneNumber,
 				`Reminder: You have the party, ${party.name}, tomorrow!
         \nhttps://${party.urlHost || 'yuzu.party'}/${party.id}
         `
-			);
+			).catch((err) => console.error(err));
 		}
 
 		await db.collection('parties').doc(party.id).update({ alerted: true });
