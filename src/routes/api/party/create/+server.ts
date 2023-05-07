@@ -82,10 +82,9 @@ export const DELETE = async ({ request, locals }) => {
 		const blocks = await db.collection('party').doc(partyId).collection('blocks').get();
 
 		batch.delete(ref);
-		blocks.forEach((doc) => {
+		blocks.docs.forEach((doc) => {
 			batch.delete(doc.ref);
 		});
-
 		await batch.commit();
 
 		return new Response('OK');
