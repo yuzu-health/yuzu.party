@@ -39,27 +39,24 @@ export const GET = async () => {
 		Object.values(partyData).map(async (party) => {
 			if (!party.attendees || party.alerted) return;
 
-			for (const [uid, { status }] of Object.entries(party.attendees)) {
-				if (!['yes', 'maybe'].includes(status)) continue;
+			await Promise.all(
+				Object.entries(party.attendees).map(async ([uid, { status }]) => {
+					if (!['yes', 'maybe'].includes(status)) return;
 
-				try {
 					const user = await auth.getUser(uid);
-					console.log('user:', user);
 
 					try {
 						await text(
 							user.phoneNumber,
 							`Reminder: You have the party, ${party.name}, tomorrow!
-        \nhttps://${party.urlHost || 'yuzu.party'}/${party.id}
+							\nhttps://${party.urlHost || 'yuzu.party'}/${party.id}
         `
 						);
 					} catch (err) {
-						console.error(err);
+						console.log(err);
 					}
-				} catch (err2) {
-					console.error(err2);
-				}
-			}
+				})
+			);
 
 			await db.collection('parties').doc(party.id).update({ alerted: true });
 		})

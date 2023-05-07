@@ -53,7 +53,7 @@ export const POST = async ({ request, locals, url }) => {
 		attendees: {
 			[locals.session.uid]: { status: 'yes', timestamp: Date.now(), name: user.displayName || '' }
 		},
-		urlHost: url.host,
+		urlHost: url.hostname === 'localhost' ? undefined : url.hostname,
 		alerted: false,
 		createdAt: Date.now(),
 		createdBy: locals.session.uid,
