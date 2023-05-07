@@ -3,7 +3,8 @@ import { db, auth } from '$lib/server/firebase';
 import { text } from '$lib/server/twilio';
 
 export const config: Config = {
-	runtime: 'nodejs18.x'
+	runtime: 'nodejs18.x',
+	split: true
 };
 
 export const load = async ({ url }) => {
