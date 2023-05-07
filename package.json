@@ -13,7 +13,7 @@
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-vercel": "^2.4.3",
-		"@sveltejs/kit": "^1.5.0",
+		"@sveltejs/kit": "^1.16.2",
 		"@tailwindcss/nesting": "^0.0.0-insiders.565cd3e",
 		"@types/bad-words": "^3.0.1",
 		"@types/cleave.js": "^1.4.7",

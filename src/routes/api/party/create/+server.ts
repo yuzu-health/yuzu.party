@@ -64,3 +64,22 @@ export const POST = async ({ request, locals }) => {
 
 	return new Response(JSON.stringify({ id: newParty.id }));
 };
+
+export const DELETE = async ({ request, locals }) => {
+	const { partyId } = await request.json();
+
+	const ref = db.collection('parties').doc(partyId);
+	const snapshot = await ref.get();
+	const party = snapshot.data();
+
+	if (!party) {
+		return new Response('Party not found', { status: 404 });
+	}
+
+	if (party.hosts.includes(locals.session.uid)) {
+		await ref.delete();
+		return new Response('OK');
+	}
+
+	return new Response('Unauthorized', { status: 401 });
+};

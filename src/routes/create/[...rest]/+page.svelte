@@ -130,14 +130,14 @@
 			<input class="ml-auto" bind:checked={$store.requireApproval} type="checkbox" />
 		</label>
 
-		<label class="flex flex-grow py-2 px-2 h-full">
+		<div class="flex flex-grow py-2 px-2 h-full">
 			<div class="font-medium w-28 shrink-0">Description</div>
-			<textarea
-				class="w-full resize-none h-full pb-1"
-				bind:value={$store.description}
-				rows="3"
+			<div
+				contenteditable
+				class="w-full resize-none h-full pb-1 outline-0"
+				bind:textContent={$store.description}
 				placeholder="Description"
 			/>
-		</label>
+		</div>
 	</div>
 </div>

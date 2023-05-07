@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Trash from '$lib/components/icons/Trash.svelte';
 	import { fly } from 'svelte/transition';
 	import compress from 'browser-image-compression';
 	import { goto } from '$app/navigation';
@@ -8,6 +9,7 @@
 	export let data;
 
 	let showLogin = false;
+	let showDelete = false;
 	let loading = false;
 
 	$: {
@@ -64,15 +66,48 @@
 			<div in:fly|local={{ y: 10 }} class="sticky bottom-0 -mt-[1px] w-full">
 				<Widget on:signin={onSubmit} />
 			</div>
+		{:else if showDelete}
+			<div class="flex -mt-[1px]">
+				<button
+					class="basic-button w-full -mr-[1px]"
+					type="button"
+					on:click={async () => {
+						loading = true;
+
+						await fetch(`/api/party/create`, {
+							method: 'DELETE',
+							body: JSON.stringify({ partyId: data?.party?.id })
+						});
+
+						loading = false;
+						$store = {};
+						goto('/profile');
+					}}
+				>
+					Confirm delete?
+				</button>
+				<button class="basic-button w-full" on:click={() => (showDelete = false)}>Cancel</button>
+			</div>
 		{:else}
-			<button
-				form="create-party"
-				class="sticky bottom-0 basic-button w-full -mt-[1px] fixed-right"
-				class:pointer-events-none={!ready}
-				class:loading
-			>
-				<span class:opacity-30={!ready}>{data.party ? 'Edit' : 'Create'}</span>
-			</button>
+			<div class="flex">
+				<button
+					form="create-party"
+					class="sticky bottom-0 basic-button w-full -mt-[1px] fixed-right"
+					class:pointer-events-none={!ready}
+					class:loading
+				>
+					<span class:opacity-30={!ready}>{data.party ? 'Save' : 'Create'}</span>
+				</button>
+				{#if data.party}
+					<button
+						type="button"
+						on:click={() => (showDelete = true)}
+						class="basic-button -ml-[1px] -mt-[1px] px-2"
+					>
+						<Trash class="w-4 h-4" />
+					</button>
+				{/if}
+			</div>
 		{/if}
 	</div>
 </div>
