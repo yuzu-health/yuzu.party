@@ -57,7 +57,9 @@ export const POST = async ({ request, locals, url }) => {
 			timeZoneName: 'short'
 		});
 
-		if (user.phoneNumber && status === 'yes') {
+		if (!user.phoneNumber) return new Response('OK');
+
+		if (status === 'yes') {
 			await text(
 				user.phoneNumber,
 				`You're attending: ${party?.name}, on ${date}!
