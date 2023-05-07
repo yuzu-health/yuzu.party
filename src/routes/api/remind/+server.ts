@@ -36,23 +36,27 @@ export const GET = async () => {
 	});
 
 	Object.values(partyData).forEach(async (party) => {
-		console.log('party:', JSON.stringify(party, null, 2));
-
 		if (!party.attendees || party.alerted) return;
 
 		for (const [uid, { status }] of Object.entries(party.attendees)) {
+			console.log('attendees:', JSON.stringify(party.attendees, null, 2));
+
 			if (!['yes', 'maybe'].includes(status)) continue;
 
 			console.log('uid:', uid);
 			const user = await auth.getUser(uid);
 			console.log('user:', user);
 
-			await text(
-				user.phoneNumber,
-				`Reminder: You have the party, ${party.name}, tomorrow!
+			try {
+				await text(
+					user.phoneNumber,
+					`Reminder: You have the party, ${party.name}, tomorrow!
         \nhttps://${party.urlHost || 'yuzu.party'}/${party.id}
         `
-			);
+				);
+			} catch (err) {
+				console.error(err);
+			}
 		}
 
 		await db.collection('parties').doc(party.id).update({ alerted: true });
