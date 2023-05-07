@@ -20,7 +20,7 @@
 	<title>Create</title>
 </svelte:head>
 
-<div class="">
+<div class="h-full">
 	<div class="relative border-b border-panel">
 		{#if src}
 			<button
@@ -74,6 +74,7 @@
 						}
 					}}
 					min={minDate}
+					class:opacity-30={!$store.date}
 					class="w-full text-left h-10 accent-primary"
 					type="datetime-local"
 					required
@@ -111,8 +112,8 @@
 					}}
 					min={generateDateTimeLocal($store.date)}
 					class="w-full text-left h-10 accent-primary"
+					class:opacity-30={!$store.end}
 					type="datetime-local"
-					required
 				/>
 			</label>
 		{/if}
@@ -134,7 +135,7 @@
 			<div class="font-medium w-28 shrink-0">Description</div>
 			<div
 				contenteditable
-				class="w-full resize-none h-full pb-1 outline-0"
+				class="w-full resize-none h-full min-h-[3.5rem] outline-0"
 				bind:textContent={$store.description}
 				placeholder="Description"
 			/>
