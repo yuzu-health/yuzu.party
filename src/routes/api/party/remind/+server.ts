@@ -1,8 +1,14 @@
+import type { Config } from '@sveltejs/adapter-vercel';
 import { db, auth } from '$lib/server/firebase';
 import { text } from '$lib/server/twilio';
 
+export const config: Config = {
+	runtime: 'edge'
+};
+
 export const GET = async ({ url }) => {
 	const now = new Date();
+	now.setHours(0);
 	now.setMinutes(0);
 	now.setSeconds(0);
 	now.setMilliseconds(0);
@@ -10,11 +16,11 @@ export const GET = async ({ url }) => {
 	const timestamp = now.getTime();
 
 	const later = new Date();
+	later.setHours(0);
 	later.setMinutes(0);
-	later.setHours(later.getHours() + 1);
 	later.setSeconds(0);
 	later.setMilliseconds(0);
-	later.setDate(later.getDate() + 1);
+	later.setDate(later.getDate() + 2);
 	const laterTimestamp = later.getTime();
 
 	const parties = await db
