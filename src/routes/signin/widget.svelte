@@ -120,7 +120,6 @@
 				<input
 					bind:this={nameRef}
 					required
-					autofocus={true}
 					class="p-2 w-full"
 					name="name"
 					placeholder="Your name"
@@ -132,7 +131,6 @@
 			<input
 				bind:this={codeRef}
 				required
-				autofocus={true}
 				class="p-2 w-full"
 				name="confirmation-code"
 				placeholder="Confirmation Code"

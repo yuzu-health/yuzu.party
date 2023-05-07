@@ -29,6 +29,8 @@ export const GET = async () => {
 		return { id: party.id, ...data } as Party;
 	});
 
+	console.log('parties:', JSON.stringify(partyData, null, 2));
+
 	Object.values(partyData).forEach(async (party) => {
 		if (!party.attendees || party.alerted) return;
 
