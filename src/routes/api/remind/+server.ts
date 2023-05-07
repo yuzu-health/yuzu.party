@@ -1,13 +1,7 @@
-import type { Config } from '@sveltejs/adapter-vercel';
 import { db, auth } from '$lib/server/firebase';
 import { text } from '$lib/server/twilio';
 
-export const config: Config = {
-	runtime: 'nodejs18.x',
-	split: true
-};
-
-export const GET = async ({ url }) => {
+export const GET = async () => {
 	const now = new Date();
 	now.setHours(0);
 	now.setMinutes(0);
@@ -46,7 +40,7 @@ export const GET = async ({ url }) => {
 			await text(
 				user.phoneNumber,
 				`Reminder: You have the party, ${party.name}, tomorrow!
-        \nhttps://${url.host}/${party.id}
+        \nhttps://${party.urlHost || 'yuzu.party'}/${party.id}
         `
 			);
 		}

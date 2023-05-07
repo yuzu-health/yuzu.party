@@ -2,7 +2,7 @@ import { db, storage, auth } from '$lib/server/firebase';
 import { v4 as uuid } from 'uuid';
 import { addMessage } from '../message/helper';
 
-export const POST = async ({ request, locals }) => {
+export const POST = async ({ request, locals, url }) => {
 	if (!locals.session) return new Response('Unauthorized', { status: 401 });
 
 	const formData = await request.formData();
@@ -53,6 +53,7 @@ export const POST = async ({ request, locals }) => {
 		attendees: {
 			[locals.session.uid]: { status: 'yes', timestamp: Date.now(), name: user.displayName || '' }
 		},
+		urlHost: url.host,
 		alerted: false,
 		createdAt: Date.now(),
 		createdBy: locals.session.uid,
@@ -77,7 +78,16 @@ export const DELETE = async ({ request, locals }) => {
 	}
 
 	if (party.hosts.includes(locals.session.uid)) {
-		await ref.delete();
+		const batch = db.batch();
+		const blocks = await db.collection('party').doc(partyId).collection('blocks').get();
+
+		batch.delete(ref);
+		blocks.forEach((doc) => {
+			batch.delete(doc.ref);
+		});
+
+		await batch.commit();
+
 		return new Response('OK');
 	}
 

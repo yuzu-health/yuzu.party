@@ -33,6 +33,7 @@ declare global {
 		hosts: string[];
 		alerted: boolean;
 		requireApproval?: boolean;
+		urlHost: string;
 		attendees: {
 			[uid: string]: {
 				name: string;
