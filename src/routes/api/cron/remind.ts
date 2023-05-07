@@ -6,7 +6,9 @@ export const config: Config = {
 	runtime: 'nodejs18.x'
 };
 
-export const GET = async ({ url }) => {
+export default async function handler(req: Request) {
+	console.log(req, req.url);
+
 	const now = new Date();
 	now.setHours(0);
 	now.setMinutes(0);
@@ -45,7 +47,7 @@ export const GET = async ({ url }) => {
 			await text(
 				user.phoneNumber,
 				`Reminder: You have the party, ${party.name}, tomorrow!
-        \nhttps://${url.host}/${party.id}
+        \nhttps://yuzu.party/${party.id}
         `
 			);
 		}
@@ -54,4 +56,4 @@ export const GET = async ({ url }) => {
 	});
 
 	return new Response('OK');
-};
+}
