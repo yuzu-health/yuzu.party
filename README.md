@@ -19,6 +19,7 @@ Party planning software open(-sourced) to all. Check it out at [yuzu.party](http
    3. Enable Storage and copy over the rules in `storage.rules`.
 2. Set up a phone number on Twilio.
 3. Copy `.env.example` to `.env` and fill in the values.
+   1. For `SECRET_FIREBASE_SERVICE_ACCOUNT_KEY` refer to https://dev.to/vvo/how-to-add-firebase-service-account-json-files-to-vercel-ph5
 4. Run `npm i`
 5. Run `npm run dev`
 
