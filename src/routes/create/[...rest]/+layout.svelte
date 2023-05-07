@@ -14,7 +14,7 @@
 
 	$: {
 		data.pathname;
-		if (data.party) store.set({ ...data.party });
+		store.set({ ...data.party });
 	}
 
 	const onSubmit = async () => {
