@@ -6,7 +6,7 @@ export const config: Config = {
 	runtime: 'nodejs18.x'
 };
 
-export const GET = async ({ url }) => {
+export const load = async ({ url }) => {
 	const now = new Date();
 	now.setHours(0);
 	now.setMinutes(0);
@@ -53,5 +53,5 @@ export const GET = async ({ url }) => {
 		await db.collection('parties').doc(party.id).update({ alerted: true });
 	});
 
-	return new Response('OK');
+	return {};
 };
