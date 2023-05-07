@@ -39,7 +39,7 @@ export const GET = async () => {
 		if (!party.attendees || party.alerted) return;
 
 		for (const [uid, { status }] of Object.entries(party.attendees)) {
-			console.log('attendees:', JSON.stringify(party.attendees, null, 2));
+			console.log({ uid, status });
 
 			if (!['yes', 'maybe'].includes(status)) continue;
 
