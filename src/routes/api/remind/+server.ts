@@ -35,9 +35,9 @@ export const GET = async () => {
 		return { id: party.id, ...data } as Party;
 	});
 
-	console.log('parties:', JSON.stringify(partyData, null, 2));
-
 	Object.values(partyData).forEach(async (party) => {
+		console.log('party:', JSON.stringify(party, null, 2));
+
 		if (!party.attendees || party.alerted) return;
 
 		for (const [uid, { status }] of Object.entries(party.attendees)) {
@@ -52,7 +52,7 @@ export const GET = async () => {
 				`Reminder: You have the party, ${party.name}, tomorrow!
         \nhttps://${party.urlHost || 'yuzu.party'}/${party.id}
         `
-			).catch((err) => console.error(err));
+			);
 		}
 
 		await db.collection('parties').doc(party.id).update({ alerted: true });
