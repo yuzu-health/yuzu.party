@@ -21,7 +21,6 @@ export const GET = async ({ url }) => {
 		.collection('parties')
 		.where('date', '>=', timestamp)
 		.where('date', '<', laterTimestamp)
-		.where('alerted', '!=', true)
 		.get();
 
 	const partyData = parties.docs.map((party) => {
@@ -29,8 +28,8 @@ export const GET = async ({ url }) => {
 		return { id: party.id, ...data } as Party;
 	});
 
-	Object.entries(partyData).forEach(async ([id, party]) => {
-		if (!party.attendees) return;
+	Object.values(partyData).forEach(async (party) => {
+		if (!party.attendees || party.alerted) return;
 
 		for (const [uid, { status }] of Object.entries(party.attendees)) {
 			if (status === 'no') continue;
@@ -45,7 +44,7 @@ export const GET = async ({ url }) => {
 			);
 		}
 
-		await db.collection('parties').doc(id).update({ alerted: true });
+		await db.collection('parties').doc(party.id).update({ alerted: true });
 	});
 
 	return new Response('OK');

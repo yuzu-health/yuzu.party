@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import '../app.css';
 
 	import ProfilePic from '$lib/components/ProfilePic.svelte';
@@ -14,10 +14,41 @@
 	let theme = 0;
 	if (browser) theme = Number(localStorage.getItem('theme') || 0);
 
+	const themes: { [key: number]: { [type: string]: string } } = {
+		0: {
+			primary: '0 0% 0%',
+			light: '0 0% 93%',
+			accent: '14 100% 50%',
+			panel: '0 0% 0%'
+		},
+		1: {
+			primary: '50 34% 86%',
+			light: '0 0% 17%',
+			accent: '0 59% 55%',
+			panel: '52 11% 26%'
+		},
+		2: {
+			primary: '0 0% 100%',
+			light: '161 100% 16%',
+			accent: '0 67% 69%',
+			panel: '158 36% 31%'
+		},
+		3: {
+			primary: '0 0% 100%',
+			light: '0 0% 0%',
+			accent: '238 83% 63%',
+			panel: '0 0% 15%'
+		}
+	};
+
+	$: t = themes[theme];
 	$: pathname = data.pathname.split('/')[1];
 </script>
 
-<div class="theme{theme} transition-colors app contents text-primary">
+<div
+	class="transition-colors app contents text-primary"
+	style="--primary: {t.primary}; --light: {t.light}; --accent: {t.accent}; --panel: {t.panel};"
+>
 	<div class="">
 		<div class="fixed top-0 w-screen h-screen bg-light" />
 		<div
@@ -102,40 +133,3 @@
 
 	<Toast />
 </div>
-
-<style>
-	.theme0 {
-		--primary: 0 0% 0%;
-		--light: 0 0% 93%;
-		--accent: 14 100% 50%;
-		--panel: 0 0% 0%;
-	}
-
-	.theme1 {
-		--primary: 50 34% 86%;
-		--light: 0 0% 17%;
-		--accent: 0 59% 55%;
-		--panel: 52 11% 26%;
-	}
-
-	.theme2 {
-		--primary: 0 0% 100%;
-		--light: 161 100% 16%;
-		--accent: 0 67% 69%;
-		--panel: 158 36% 31%;
-	}
-
-	.theme3 {
-		--primary: 0 0% 100%;
-		--light: 0 0% 0%;
-		--accent: 238 83% 63%;
-		--panel: 0 0% 15%;
-	}
-
-	.theme-hyperplane {
-		--primary: 180 4% 9%;
-		--light: 0 0% 100%;
-		--accent: 218 58% 44%;
-		--panel: 180 4% 9%;
-	}
-</style>
