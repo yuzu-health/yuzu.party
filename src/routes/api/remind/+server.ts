@@ -35,33 +35,35 @@ export const GET = async () => {
 		return { id: party.id, ...data } as Party;
 	});
 
-	Object.values(partyData).forEach(async (party) => {
-		if (!party.attendees || party.alerted) return;
+	await Promise.all(
+		Object.values(partyData).map(async (party) => {
+			if (!party.attendees || party.alerted) return;
 
-		for (const [uid, { status }] of Object.entries(party.attendees)) {
-			if (!['yes', 'maybe'].includes(status)) continue;
-
-			try {
-				const user = await auth.getUser(uid);
-				console.log('user:', user);
+			for (const [uid, { status }] of Object.entries(party.attendees)) {
+				if (!['yes', 'maybe'].includes(status)) continue;
 
 				try {
-					await text(
-						user.phoneNumber,
-						`Reminder: You have the party, ${party.name}, tomorrow!
+					const user = await auth.getUser(uid);
+					console.log('user:', user);
+
+					try {
+						await text(
+							user.phoneNumber,
+							`Reminder: You have the party, ${party.name}, tomorrow!
         \nhttps://${party.urlHost || 'yuzu.party'}/${party.id}
         `
-					);
-				} catch (err) {
-					console.error(err);
+						);
+					} catch (err) {
+						console.error(err);
+					}
+				} catch (err2) {
+					console.error(err2);
 				}
-			} catch (err2) {
-				console.error(err2);
 			}
-		}
 
-		await db.collection('parties').doc(party.id).update({ alerted: true });
-	});
+			await db.collection('parties').doc(party.id).update({ alerted: true });
+		})
+	);
 
 	return new Response('OK');
 };
