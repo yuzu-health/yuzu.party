@@ -10,8 +10,6 @@ export const load = async ({ locals }) => {
 
 	return {
 		uid,
-		streaming: {
-			displayName: auth.getUser(uid).then((user) => user.displayName)
-		}
+		displayName: (await auth.getUser(uid)).displayName
 	};
 };

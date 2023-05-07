@@ -13,7 +13,7 @@
 	export let data;
 
 	let files: FileList;
-	let displayName = '';
+	let displayName = data.displayName || '';
 	let saving = false;
 	let parties: Party[] | undefined;
 
@@ -25,7 +25,6 @@
 	};
 
 	onMount(() => {
-		data.streaming.displayName.then((name) => (displayName = name || ''));
 		fetchParties();
 	});
 
@@ -47,6 +46,7 @@
 		try {
 			await fetch('/api/profile', { method: 'POST', body: formData });
 			if (files?.[0]) window.location.reload();
+			else invalidateAll();
 			add('Profile updated!');
 		} catch (e) {
 			add('Error updating profile');
@@ -174,8 +174,7 @@
 		</div>
 		<button
 			class="basic-button fixed-right"
-			on:click={profileChange}
-			disabled={!displayName}
+			disabled={!displayName || (displayName === data?.displayName && !files?.[0])}
 			class:loading={saving}
 		>
 			Save Profile
