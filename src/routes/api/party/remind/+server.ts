@@ -3,7 +3,7 @@ import { db, auth } from '$lib/server/firebase';
 import { text } from '$lib/server/twilio';
 
 export const config: Config = {
-	runtime: 'edge'
+	runtime: 'nodejs18.x'
 };
 
 export const GET = async ({ url }) => {
