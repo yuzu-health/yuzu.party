@@ -136,6 +136,7 @@
 				class="p-2 w-full"
 				name="confirmation-code"
 				placeholder="Confirmation Code"
+				maxlength="6"
 				bind:value={code}
 			/>
 		</div>

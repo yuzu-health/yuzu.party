@@ -4,7 +4,8 @@
 
 	let previousPage: string;
 	afterNavigate(({ from }) => {
-		previousPage = from?.url.pathname || '';
+		previousPage =
+			!from?.url.pathname || from?.url?.pathname === '/' ? '/profile' : from?.url.pathname;
 	});
 </script>
 
