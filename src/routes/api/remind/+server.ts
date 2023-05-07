@@ -39,23 +39,24 @@ export const GET = async () => {
 		if (!party.attendees || party.alerted) return;
 
 		for (const [uid, { status }] of Object.entries(party.attendees)) {
-			console.log({ uid, status });
-
 			if (!['yes', 'maybe'].includes(status)) continue;
 
-			console.log('uid:', uid);
-			const user = await auth.getUser(uid);
-			console.log('user:', user);
-
 			try {
-				await text(
-					user.phoneNumber,
-					`Reminder: You have the party, ${party.name}, tomorrow!
+				const user = await auth.getUser(uid);
+				console.log('user:', user);
+
+				try {
+					await text(
+						user.phoneNumber,
+						`Reminder: You have the party, ${party.name}, tomorrow!
         \nhttps://${party.urlHost || 'yuzu.party'}/${party.id}
         `
-				);
-			} catch (err) {
-				console.error(err);
+					);
+				} catch (err) {
+					console.error(err);
+				}
+			} catch (err2) {
+				console.error(err2);
 			}
 		}
 
