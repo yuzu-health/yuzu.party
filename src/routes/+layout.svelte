@@ -1,6 +1,5 @@
 <script lang="ts">
 	import '../app.css';
-
 	import ProfilePic from '$lib/components/ProfilePic.svelte';
 	import Toast from '$lib/components/Toast/Container.svelte';
 	import Logo from '$lib/components/Logo.svelte';
@@ -8,40 +7,19 @@
 	import User from '$lib/components/icons/User.svelte';
 	import Palette from '$lib/components/icons/Palette.svelte';
 	import { browser } from '$app/environment';
+	import store from './create/[...rest]/store';
+	import themes from '$lib/themes';
 
 	export let data;
 
 	let theme = 0;
 	if (browser) theme = Number(localStorage.getItem('theme') || 0);
 
-	const themes: { [key: number]: { [type: string]: string } } = {
-		0: {
-			primary: '0 0% 0%',
-			light: '0 0% 93%',
-			accent: '14 100% 50%',
-			panel: '0 0% 0%'
-		},
-		1: {
-			primary: '50 34% 86%',
-			light: '0 0% 17%',
-			accent: '0 59% 55%',
-			panel: '52 11% 26%'
-		},
-		2: {
-			primary: '0 0% 100%',
-			light: '161 100% 16%',
-			accent: '0 67% 69%',
-			panel: '158 36% 31%'
-		},
-		3: {
-			primary: '0 0% 100%',
-			light: '0 0% 0%',
-			accent: '238 83% 63%',
-			panel: '0 0% 15%'
-		}
-	};
-
-	$: t = themes[theme];
+	$: t =
+		data.pathname.startsWith('/create') && $store.theme
+			? $store.theme
+			: // @ts-ignore
+			  data?.party?.theme || themes[theme];
 	$: pathname = data.pathname.split('/')[1];
 </script>
 
@@ -52,13 +30,13 @@
 	<div class="">
 		<div class="fixed top-0 w-screen h-screen bg-light" />
 		<div
-			class="fixed top-0 w-screen h-screen bg-dashes text-primary text-opacity-20"
+			class="fixed top-0 w-screen h-screen bg-dashes text-primary text-opacity-20 transition-colors duration-150"
 			style="--dashes-gap: 6px;"
 		/>
 	</div>
 
 	{#key pathname}
-		<div class="basic-fadein">
+		<div class="basic-fadein transition-colors duration-150 text-primary">
 			<slot />
 		</div>
 	{/key}

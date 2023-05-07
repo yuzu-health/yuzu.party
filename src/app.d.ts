@@ -34,6 +34,12 @@ declare global {
 		alerted: boolean;
 		requireApproval?: boolean;
 		urlHost: string;
+		theme?: {
+			primary: string;
+			light: string;
+			accent: string;
+			panel: string;
+		};
 		attendees: {
 			[uid: string]: {
 				name: string;

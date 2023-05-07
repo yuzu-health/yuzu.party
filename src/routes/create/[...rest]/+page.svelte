@@ -3,6 +3,7 @@
 	import Camera from '$lib/components/icons/Camera.svelte';
 	import X from '$lib/components/icons/X.svelte';
 	import store from './store';
+
 	$: src = $store.files?.[0] ? URL.createObjectURL($store.files?.[0]) : $store.image;
 
 	const generateDateTimeLocal = (date?: Date | number) => {
