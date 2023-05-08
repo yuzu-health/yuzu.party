@@ -146,3 +146,12 @@
 		</div>
 	</div>
 </div>
+
+<style>
+	input::-webkit-calendar-picker-indicator {
+		position: absolute;
+		right: 0;
+		width: 100%;
+		background: none;
+	}
+</style>
