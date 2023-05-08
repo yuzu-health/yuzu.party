@@ -74,6 +74,7 @@
 							e.target.value = '';
 						}
 					}}
+					placeholder="Start"
 					min={minDate}
 					class:opacity-30={!$store.date}
 					class="w-full text-left h-10 accent-primary"
@@ -111,6 +112,7 @@
 							e.target.value = '';
 						}
 					}}
+					placeholder="End"
 					min={generateDateTimeLocal($store.date)}
 					class="w-full text-left h-10 accent-primary"
 					class:opacity-30={!$store.end}
