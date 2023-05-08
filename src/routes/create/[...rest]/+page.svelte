@@ -163,4 +163,8 @@
 	input::-webkit-date-and-time-value {
 		text-align: left;
 	}
+
+	input::-webkit-date-and-time-value:empty:not(:focus) {
+		content: 'Date';
+	}
 </style>
