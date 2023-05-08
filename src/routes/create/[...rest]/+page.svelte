@@ -60,7 +60,7 @@
 		</label>
 
 		<div class="flex overflow-hidden">
-			<label class="flex border-b border-panel items-center px-2 w-full">
+			<div class="flex border-b border-panel items-center px-2 w-full">
 				<div class="font-medium w-24 py-2 shrink-0">Start</div>
 				<input
 					value={generateDateTimeLocal($store.date)}
@@ -81,7 +81,7 @@
 					type="datetime-local"
 					required
 				/>
-			</label>
+			</div>
 			<button
 				type="button"
 				class="whitespace-pre text-sm font-medium border-b px-2 border-panel"
@@ -98,7 +98,7 @@
 		</div>
 
 		{#if showEnd}
-			<label in:slide class="flex border-b border-panel items-center px-2 w-full">
+			<div in:slide class="flex border-b border-panel items-center px-2 w-full">
 				<div class="font-medium w-24 py-2 shrink-0">End</div>
 				<input
 					value={generateDateTimeLocal($store.end)}
@@ -118,7 +118,7 @@
 					class:opacity-30={!$store.end}
 					type="datetime-local"
 				/>
-			</label>
+			</div>
 		{/if}
 
 		<label class="flex border-b border-panel px-2">
@@ -148,10 +148,15 @@
 </div>
 
 <style>
+	input {
+		position: relative;
+	}
+
 	input::-webkit-calendar-picker-indicator {
 		position: absolute;
 		right: 0;
 		width: 100%;
+		height: 100%;
 		background: none;
 	}
 </style>
