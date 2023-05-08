@@ -159,7 +159,7 @@
 	}
 
 	@supports (-webkit-touch-callout: none) {
-		input.opacity-30::before {
+		input[type='datetime-local'].opacity-30::before {
 			content: 'Date';
 		}
 	}
