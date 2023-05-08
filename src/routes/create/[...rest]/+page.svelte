@@ -55,8 +55,8 @@
 
 	<div class="flex flex-col">
 		<label class="flex border-b border-panel px-2">
-			<div class="font-medium w-24 py-2 shrink-0">Name</div>
-			<input class="w-full" required bind:value={$store.name} maxlength="50" placeholder="Name" />
+			<div class="font-medium w-24 py-2 shrink-0">Title</div>
+			<input class="w-full" required bind:value={$store.name} maxlength="50" placeholder="Title" />
 		</label>
 
 		<div class="flex overflow-hidden">
