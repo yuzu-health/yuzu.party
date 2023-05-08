@@ -159,4 +159,8 @@
 		height: 100%;
 		background: none;
 	}
+
+	input::-webkit-date-and-time-value {
+		text-align: left;
+	}
 </style>
