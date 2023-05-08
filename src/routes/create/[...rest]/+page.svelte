@@ -55,13 +55,13 @@
 
 	<div class="flex flex-col">
 		<label class="flex border-b border-panel px-2">
-			<div class="font-medium w-28 py-2 shrink-0">Name</div>
+			<div class="font-medium w-24 py-2 shrink-0">Name</div>
 			<input class="w-full" required bind:value={$store.name} maxlength="50" placeholder="Name" />
 		</label>
 
 		<div class="flex overflow-hidden">
 			<label class="flex border-b border-panel items-center px-2 w-full">
-				<div class="font-medium w-28 py-2 shrink-0">Start</div>
+				<div class="font-medium w-24 py-2 shrink-0">Start</div>
 				<input
 					value={generateDateTimeLocal($store.date)}
 					on:input={(e) => {
@@ -98,7 +98,7 @@
 
 		{#if showEnd}
 			<label in:slide class="flex border-b border-panel items-center px-2 w-full">
-				<div class="font-medium w-28 py-2 shrink-0">End</div>
+				<div class="font-medium w-24 py-2 shrink-0">End</div>
 				<input
 					value={generateDateTimeLocal($store.end)}
 					on:input={(e) => {
@@ -120,7 +120,7 @@
 		{/if}
 
 		<label class="flex border-b border-panel px-2">
-			<div class="font-medium w-28 py-2 shrink-0">Location</div>
+			<div class="font-medium w-24 py-2 shrink-0">Location</div>
 			<input class="w-full" bind:value={$store.location} placeholder="Location" maxlength="60" />
 		</label>
 
@@ -133,9 +133,10 @@
 		</label>
 
 		<div class="flex flex-grow py-2 px-2 h-full">
-			<div class="font-medium w-28 shrink-0">Description</div>
+			<div class="font-medium w-24 shrink-0">Description</div>
 			<div
-				contenteditable
+				contenteditable="true"
+				data-placeholder="Description"
 				class="w-full resize-none h-full min-h-[3.5rem] outline-0"
 				bind:textContent={$store.description}
 				placeholder="Description"

@@ -5,7 +5,7 @@
 	<title>yuzu.party</title>
 </svelte:head>
 
-<div class="w-screen flex flex-col items-center justify-center px-4 h-screen">
+<div class="w-screen flex flex-col items-center justify-center px-2 h-screen">
 	<div
 		class="w-full lg:max-w-screen-lg flex flex-col justify-center max-h-[calc(100%-90px)] sm:max-h-[34rem] h-screen max-w-lg"
 	>

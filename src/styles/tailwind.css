@@ -63,10 +63,9 @@
 		@apply text-primary accent-accent rounded-none bg-light outline-none placeholder:text-primary placeholder:text-opacity-30;
 	}
 
-	[type='datetime-local'] {
-		-webkit-appearance: none;
-		-moz-appearance: none;
-		appearance: none;
+	[contenteditable='true']:empty:not(:focus):before {
+		@apply text-primary text-opacity-30;
+		content: attr(data-placeholder);
 	}
 
 	select:invalid {

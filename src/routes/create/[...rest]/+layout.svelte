@@ -50,7 +50,7 @@
 	$: ready = $store.name && $store.date;
 </script>
 
-<div class="flex flex-col items-center justify-center w-full h-screen max-w-screen-xs mx-auto p-2">
+<div class="flex flex-col items-center justify-center w-full h-screen max-w-screen-xs mx-auto px-2">
 	<div class="flex flex-col h-[calc(100%-90px)] sm:max-h-[34rem] mt-[5px] sm:mt-0 w-full">
 		<form
 			id="create-party"
