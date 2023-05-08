@@ -60,7 +60,7 @@
 		</label>
 
 		<div class="flex overflow-hidden">
-			<div class="flex border-b border-panel items-center px-2 w-full">
+			<div class="flex border-b border-panel items-center pl-2 w-full">
 				<div class="font-medium w-24 py-2 shrink-0">Start</div>
 				<input
 					value={generateDateTimeLocal($store.date)}
@@ -74,7 +74,6 @@
 							e.target.value = '';
 						}
 					}}
-					placeholder="Start"
 					min={minDate}
 					class:opacity-30={!$store.date}
 					class="w-full text-left h-10 accent-primary"
@@ -84,7 +83,7 @@
 			</div>
 			<button
 				type="button"
-				class="whitespace-pre text-sm font-medium border-b px-2 border-panel"
+				class="whitespace-pre text-sm font-medium border-b pr-2 border-panel"
 				class:disabled={!$store.date}
 				on:click={() => {
 					showEnd = !showEnd;
@@ -98,7 +97,7 @@
 		</div>
 
 		{#if showEnd}
-			<div in:slide class="flex border-b border-panel items-center px-2 w-full">
+			<div in:slide class="flex border-b border-panel items-center pl-2 w-full">
 				<div class="font-medium w-24 py-2 shrink-0">End</div>
 				<input
 					value={generateDateTimeLocal($store.end)}
@@ -112,7 +111,6 @@
 							e.target.value = '';
 						}
 					}}
-					placeholder="End"
 					min={generateDateTimeLocal($store.date)}
 					class="w-full text-left h-10 accent-primary"
 					class:opacity-30={!$store.end}
@@ -164,7 +162,7 @@
 		text-align: left;
 	}
 
-	input::-webkit-date-and-time-value:empty:not(:focus) {
+	input::-webkit-date-and-time-value:empty:not(:focus)::before {
 		content: 'Date';
 	}
 </style>
