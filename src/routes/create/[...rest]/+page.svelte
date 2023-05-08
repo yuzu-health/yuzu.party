@@ -158,11 +158,13 @@
 		background: none;
 	}
 
-	input::-webkit-date-and-time-value {
-		text-align: left;
+	@supports (-webkit-touch-callout: none) {
+		input.opacity-30::before {
+			content: 'Date';
+		}
 	}
 
-	input::-webkit-date-and-time-value:empty:not(:focus)::before {
-		content: 'Date';
+	input::-webkit-date-and-time-value {
+		text-align: left;
 	}
 </style>

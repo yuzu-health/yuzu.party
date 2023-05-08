@@ -69,9 +69,13 @@
 		appearance: none;
 	}
 
-	[contenteditable='true']:empty:not(:focus):before {
+	[contenteditable='true']:empty:before {
 		@apply text-primary text-opacity-30;
 		content: attr(data-placeholder);
+	}
+
+	[contenteditable='true']:focus {
+		outline: none !important;
 	}
 
 	select:invalid {
