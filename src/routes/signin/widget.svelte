@@ -23,7 +23,7 @@
 	onMount(async () => {
 		phoneRef?.focus();
 		window.recaptchaVerifier = new RecaptchaVerifier('recaptcha-div', { size: 'invisible' }, auth);
-		await window.recaptchaVerifier.render();
+		window.recaptchaVerifier.render();
 		return () => {
 			window.recaptchaVerifier.clear();
 		};
