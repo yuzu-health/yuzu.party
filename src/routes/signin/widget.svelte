@@ -23,6 +23,7 @@
 	onMount(async () => {
 		phoneRef?.focus();
 		window.recaptchaVerifier = new RecaptchaVerifier('recaptcha-div', { size: 'invisible' }, auth);
+		await window.recaptchaVerifier.render();
 		return () => {
 			window.recaptchaVerifier.clear();
 		};
@@ -31,12 +32,12 @@
 	const onSubmit = async () => {
 		loading = true;
 		try {
-			await window.recaptchaVerifier.render();
 			result = await onPhoneSubmit('+' + countryCode + phoneNumber);
 			await tick();
 			if (nameRef) nameRef.focus();
 			else if (codeRef) codeRef.focus();
 		} catch (e) {
+			console.log(e);
 			add('There was an issue verifiying your number');
 		}
 		loading = false;
