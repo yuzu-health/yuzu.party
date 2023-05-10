@@ -20,10 +20,27 @@
 
 	const dispatch = createEventDispatcher();
 
-	onMount(() => {
+	onMount(async () => {
 		phoneRef?.focus();
 		window.recaptchaVerifier = new RecaptchaVerifier('recaptcha-div', { size: 'invisible' }, auth);
+		return () => {
+			window.recaptchaVerifier.clear();
+		};
 	});
+
+	const onSubmit = async () => {
+		loading = true;
+		try {
+			await window.recaptchaVerifier.render();
+			result = await onPhoneSubmit('+' + countryCode + phoneNumber);
+			await tick();
+			if (nameRef) nameRef.focus();
+			else if (codeRef) codeRef.focus();
+		} catch (e) {
+			add('There was an issue verifiying your number');
+		}
+		loading = false;
+	};
 
 	const onPhoneSubmit = async (phone: string) => {
 		const appVerifier = window.recaptchaVerifier;
@@ -49,20 +66,7 @@
 </script>
 
 {#if !result}
-	<form
-		on:submit|preventDefault={async () => {
-			loading = true;
-			try {
-				result = await onPhoneSubmit('+' + countryCode + phoneNumber);
-				await tick();
-				if (nameRef) nameRef.focus();
-				else if (codeRef) codeRef.focus();
-			} catch (e) {
-				add('There was an issue verifiying your number');
-			}
-			loading = false;
-		}}
-	>
+	<form on:submit|preventDefault={onSubmit}>
 		<div class="flex items-center basic-panel gap-2 px-2">
 			<div class="flex">
 				+

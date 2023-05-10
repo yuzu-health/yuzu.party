@@ -23,5 +23,6 @@ const config = {
 export const app = initializeApp(config);
 export const db = getFirestore(app);
 export const auth = getAuth(app);
+auth.useDeviceLanguage();
 export const storage = getStorage(app);
 setPersistence(auth, inMemoryPersistence);
