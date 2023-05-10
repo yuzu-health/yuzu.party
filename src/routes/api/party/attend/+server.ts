@@ -25,6 +25,8 @@ export const POST = async ({ request, locals, url }) => {
 
 	if (currentStatus === status) return new Response('OK');
 
+	if (status === 'request' && ['yes', 'maybe'].includes(currentStatus)) return new Response('OK');
+
 	const alert =
 		status === 'yes'
 			? 'is attending'
