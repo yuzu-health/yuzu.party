@@ -6,6 +6,7 @@
 
 	import { db, auth } from '$lib/firebase';
 	import { page } from '$app/stores';
+	import { browser } from '$app/environment';
 	import { timeSince } from '$lib/utils';
 	import ProfilePic from '$lib/components/ProfilePic.svelte';
 	import Submit from './Submit.svelte';
@@ -83,7 +84,7 @@
 
 	$: {
 		data;
-		fetchMessages();
+		if (browser) fetchMessages();
 	}
 </script>
 
