@@ -27,7 +27,7 @@
 				if ($store.files?.[0]) {
 					const compressedFiled = await compress($store.files?.[0], {
 						maxSizeMB: 2,
-						maxWidthOrHeight: 500
+						maxWidthOrHeight: 700
 					});
 
 					formData.append('image', compressedFiled);
