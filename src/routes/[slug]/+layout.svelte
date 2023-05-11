@@ -135,11 +135,7 @@
 					<div class="flex items-center gap-1 text-primary text-opacity-75">
 						<User class="w-4 h-4" />
 						<div class="">Hosted by</div>
-						{#await data?.streaming?.hostNames}
-							{data.party?.hosts.map((host) => data.party?.attendees?.[host]?.name).join(', ')}
-						{:then hostNames}
-							{hostNames?.join(', ')}
-						{/await}
+						{data?.hostnames?.join(', ')}
 					</div>
 
 					<button
