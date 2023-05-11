@@ -20,7 +20,7 @@ export const POST = async ({ request, locals, url }) => {
 	if (body.image && typeof body.image !== 'string') {
 		const buffer = await (body.image as Blob).arrayBuffer();
 		const bf = Buffer.from(buffer);
-		const file = storage.bucket().file(locals.session.uid + '/parties/' + uuid());
+		const file = storage.bucket().file(locals.session.uid + '/parties/' + uuid() + '.jpg');
 		await file.save(bf);
 		const image = await file.getSignedUrl({ action: 'read', expires: '03-09-2491' });
 		body.image = image[0];
