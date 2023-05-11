@@ -30,7 +30,7 @@
 	<div class="">
 		<div class="fixed top-0 w-screen h-screen bg-light" />
 		<div
-			class="fixed top-0 w-screen h-screen bg-dashes text-primary text-opacity-20 transition-colors duration-150"
+			class="fixed top-0 w-screen h-screen bg-dashes text-primary text-opacity-10 transition-colors duration-150"
 			style="--dashes-gap: 6px;"
 		/>
 	</div>

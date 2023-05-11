@@ -112,7 +112,7 @@
 			<div class="p-4 flex flex-col gap-4">
 				<div class="font-semibold text-xl whitespace-pre-wrap">{data.party?.name}</div>
 				{#if data.party?.date}
-					<div class="text-primary text-opacity-50 flex items-center min-w-[50%] flex-wrap">
+					<div class="text-primary text-opacity-75 flex items-center min-w-[50%] flex-wrap">
 						<Calendar class="w-4 h-4 mr-2" />
 
 						{startTime}
@@ -126,13 +126,13 @@
 					</div>
 				{/if}
 				{#if data.party?.location}
-					<div class="text-primary text-opacity-50 flex">
+					<div class="text-primary text-opacity-75 flex">
 						<Marker class="w-4 h-5 mr-2 shrink-0" />
 						{data.party?.location}
 					</div>
 				{/if}
 				<div class="flex flex-wrap gap-y-4">
-					<div class="flex items-center gap-1 text-primary text-opacity-50">
+					<div class="flex items-center gap-1 text-primary text-opacity-75">
 						<User class="w-4 h-4" />
 						<div class="">Hosted by</div>
 						{#await data?.streaming?.hostNames}
@@ -179,10 +179,10 @@
 				</button>
 			{:else}
 				<div class="grid grid-cols-3 h-12 font-semibold">
-					{#each ['yes', 'maybe', 'no'] as option}
+					{#each ['yes', 'maybe', 'no'] as option, i}
 						<button
 							on:click={async () => onSubmit(option)}
-							class="basic-button -mr-[1px] capitalize"
+							class="basic-button {i === 2 ? '' : '-mr-[1px]'} capitalize"
 							class:selected={status === option}
 						>
 							{option}
