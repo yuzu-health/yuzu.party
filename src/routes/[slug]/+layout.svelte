@@ -10,7 +10,7 @@
 	import Edit from '$lib/components/icons/Edit.svelte';
 	import Calendar from '$lib/components/icons/Calendar.svelte';
 	import User from '$lib/components/icons/User.svelte';
-	import Clipboard from '$lib/components/icons/Clipboard.svelte';
+	import ExternalLink from '$lib/components/icons/ExternalLink.svelte';
 
 	export let data;
 
@@ -131,34 +131,35 @@
 						{data.party?.location}
 					</div>
 				{/if}
-				<div class="flex flex-wrap gap-y-4">
-					<div class="flex items-center gap-1 text-primary text-opacity-75">
-						<User class="w-4 h-4" />
-						<div class="">Hosted by</div>
-						{data?.hostnames?.join(', ')}
-					</div>
-
+				<div class="flex items-center gap-1 text-primary text-opacity-75">
+					<User class="w-4 h-4" />
+					<div class="">Hosted by</div>
+					{data?.hostnames?.join(', ')}
+				</div>
+				<div class="flex flex-wrap items-start gap-x-4">
 					<button
-						class="ml-auto flex items-center text-primary text-opacity-50 hover:text-opacity-100 transition-colors"
+						class="flex items-center text-primary text-opacity-70 hover:text-opacity-100 transition-colors"
 						type="button"
 						on:click={onShare}
 					>
-						<Clipboard class="w-4 h-4 mr-2" />
+						<ExternalLink class="w-4 h-4 mr-1" />
 						Share
 					</button>
+
+					{#if data.party?.hosts.includes(data.uid)}
+						<div>
+							<a
+								class="inline-flex items-center gap-2 opacity-75 hover:opacity-100"
+								href={`/create/${data.party?.id}`}
+							>
+								<Edit class="w-4 h-4" />
+								Edit
+							</a>
+						</div>
+					{/if}
 				</div>
+
 				<div class="whitespace-pre-wrap">{data.party?.description || ''}</div>
-				{#if data.party?.hosts.includes(data.uid)}
-					<div>
-						<a
-							class="inline-flex items-center gap-2 underline opacity-50 hover:opacity-100"
-							href={`/create/${data.party?.id}`}
-						>
-							<Edit class="w-4 h-4" />
-							Edit party
-						</a>
-					</div>
-				{/if}
 			</div>
 		</div>
 
