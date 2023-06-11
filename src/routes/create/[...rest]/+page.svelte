@@ -124,10 +124,7 @@
 			<input class="w-full" bind:value={$store.location} placeholder="Location" maxlength="60" />
 		</label>
 
-		<label
-			data-tooltip="Users have to be manually approved before they could RSVP"
-			class="flex items-center border-b border-panel px-2 pr-3"
-		>
+		<label class="flex items-center border-b border-panel px-2 pr-3">
 			<div class="font-medium py-2 shrink-0">Require approval to join?</div>
 			<input class="ml-auto" bind:checked={$store.requireApproval} type="checkbox" />
 		</label>
