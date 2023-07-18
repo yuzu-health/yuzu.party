@@ -22,7 +22,7 @@
 </svelte:head>
 
 <div class="h-full">
-	<div class="p-2">Create a party</div>
+	<div class="p-2 border-b border-panel font-semibold">Create a party</div>
 
 	<div class="relative border-b border-panel">
 		{#if src}
