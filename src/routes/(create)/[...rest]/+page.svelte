@@ -18,10 +18,12 @@
 </script>
 
 <svelte:head>
-	<title>Create</title>
+	<title>Yuzu Party</title>
 </svelte:head>
 
 <div class="h-full">
+	<div class="p-2">Create a party</div>
+
 	<div class="relative border-b border-panel">
 		{#if src}
 			<button

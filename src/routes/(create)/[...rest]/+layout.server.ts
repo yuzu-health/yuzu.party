@@ -3,7 +3,7 @@ import { db } from '$lib/server/firebase';
 export const load = async ({ url, locals }) => {
 	const parts = url.pathname.split('/');
 
-	if (parts[1] === 'create' && parts[2]) {
+	if (parts[1] === 'edit' && parts[2]) {
 		const party = await db.collection('parties').doc(parts[2]).get();
 		const data = party.data();
 

@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { slide } from 'svelte/transition';
 	import compress from 'browser-image-compression';
 
 	import { invalidateAll } from '$app/navigation';
@@ -100,11 +99,7 @@
 				</div>
 			{:else}
 				{#each parties as party, i}
-					<a
-						in:slide
-						class="basic-button p-2 block -mt-[1px] font-normal w-full"
-						href="/{party.id}"
-					>
+					<a class="basic-button p-2 block -mt-[1px] font-normal w-full" href="/{party.id}">
 						<div class="w-[100%] text-ellipsis overflow-hidden mb-2 font-medium">
 							{party.name}
 						</div>
@@ -131,7 +126,7 @@
 				<div class="flex-grow basic-panel -mt-[1px]" />
 			{/if}
 		</div>
-		<a href="/create" class="basic-button sticky bottom-0 text-center bg-dots -mt-[1px]">
+		<a href="/" class="basic-button sticky bottom-0 text-center bg-dots -mt-[1px]">
 			<span class="py-0.5 px-2 bg-light font-semibold">Create a party</span>
 		</a>
 	</div>

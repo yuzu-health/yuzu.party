@@ -150,7 +150,7 @@
 						<div>
 							<a
 								class="inline-flex items-center gap-2 opacity-75 hover:opacity-100"
-								href={`/create/${data.party?.id}`}
+								href={`/edit/${data.party?.id}`}
 							>
 								<Edit class="w-4 h-4" />
 								Edit

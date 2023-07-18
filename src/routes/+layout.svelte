@@ -7,7 +7,7 @@
 	import User from '$lib/components/icons/User.svelte';
 	import Palette from '$lib/components/icons/Palette.svelte';
 	import { browser } from '$app/environment';
-	import store from './create/[...rest]/store';
+	import store from './(create)/[...rest]/store';
 	import themes from '$lib/themes';
 
 	export let data;
