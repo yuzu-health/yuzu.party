@@ -28,9 +28,13 @@
 	style="
 	--primary: {t.primary};
 	--light: {t.light};
-	--background-color: hsl({t.light});
 	--accent: {t.accent};
 	--panel: {t.panel};
+
+	--yuzui-primary: {t.primary};
+	--yuzui-light: {t.light};
+	--yuzui-accent: {t.accent};
+	--yuzui-panel: {t.panel};
 "
 >
 	<div class="">
