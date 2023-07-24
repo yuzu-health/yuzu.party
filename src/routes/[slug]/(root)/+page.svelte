@@ -88,22 +88,18 @@
 	}
 </script>
 
-<div class="flex justify-between items-center font-medium">
-	<div class="basic-panel pl-4 h-10 w-full -mr-[1px] flex items-center border-b-0">Activity</div>
+<div class="flex justify-between items-center font-medium -mb-[1px]">
+	<div class="yuzui pl-4 h-10 w-full -mr-[1px] flex items-center border-b-0">Activity</div>
 	{#if ['yes', 'maybe'].includes(data?.party?.attendees?.[data.uid]?.status || '')}
 		{#each attending.splice(0, 3) as [id, { name }]}
-			<ProfilePic
-				class="w-10 h-10 basic-panel -mr-[1px] object-cover border-b-0 bg-dots"
-				uid={id}
-				{name}
-			/>
+			<ProfilePic class="w-10 h-10 yuzui -mr-[1px] object-cover yuzui-bg-dots" uid={id} {name} />
 		{/each}
 		<a
 			data-sveltekit-noscroll
 			href={$page.data.pathname + '/people'}
-			class="h-10 basic-button flex items-center justify-center whitespace-nowrap text-sm border-b-0"
+			class="h-10 yuzui flex items-center whitespace-nowrap border-b-0 !px-2"
 		>
-			{numAttending} attending
+			<div class="text-sm">{numAttending} attending</div>
 		</a>
 	{/if}
 </div>
@@ -122,7 +118,7 @@
 			showScrollBottom = false;
 		}
 	}}
-	class="h-full overflow-y-scroll basic-panel border-b-0"
+	class="h-full yuzui overflow-y-auto"
 >
 	{#if typeof messages === 'undefined'}
 		<div
@@ -188,13 +184,13 @@
 		class="absolute bottom-16 left-1/2 -translate-x-1/2"
 	>
 		<button
-			class="basic-button text-sm"
+			class="yuzui !text-sm !px-2"
 			on:click={() => {
 				showScrollBottom = false;
 				messageRef.scrollTo({ top: messageRef.scrollHeight, behavior: 'smooth' });
 			}}
 		>
-			<div class="rotate-90 h-4 w-4 inline-block">{'->'}</div>
+			<span class="rotate-90 h-4 w-4 inline-block">{'->'}</span>
 			see updates
 		</button>
 	</div>

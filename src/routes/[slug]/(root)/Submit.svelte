@@ -29,10 +29,10 @@
 	};
 </script>
 
-<form on:submit|preventDefault={onSubmit} class={clazz}>
-	<div class=" basic-panel border border-panel w-full">
+<form on:submit|preventDefault={onSubmit} class="{clazz} yuzui-row">
+	<div class="yuzui w-full">
 		<input
-			class="h-full w-full flex-grow px-4"
+			class="h-full w-full flex-grow !px-4"
 			placeholder="type a message..."
 			bind:value={message}
 			required
@@ -42,7 +42,7 @@
 		<button
 			data-tooltip="Make message a text alert"
 			type="button"
-			class="basic-button px-2 -ml-[1px]"
+			class="yuzui !px-2"
 			on:click={() => (textAlert = !textAlert)}
 		>
 			<Phone class="w-6 h-6 {!textAlert ? 'opacity-50' : ''}" />
@@ -50,12 +50,12 @@
 	{/if}
 	<button
 		type="submit"
-		class="basic-button -ml-[1px] after:!ml-0"
+		class="yuzui after:!right-[14px] !px-3"
 		class:loading={sending}
 		class:disabled={!['yes', 'maybe'].includes(
 			$page?.data?.party?.attendees?.[$page?.data?.uid]?.status
 		)}
 	>
-		<Send class={`w-4 h-5 ${sending ? 'hidden' : ''}`} />
+		<Send class={`w-4 h-5 ${sending ? 'opacity-0' : ''}`} />
 	</button>
 </form>

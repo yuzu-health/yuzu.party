@@ -67,8 +67,8 @@
 </script>
 
 {#if !result}
-	<form on:submit|preventDefault={onSubmit}>
-		<div class="flex items-center basic-panel gap-2 px-2">
+	<form class="yuzui-column" on:submit|preventDefault={onSubmit}>
+		<div class="flex items-center yuzui gap-2 px-2">
 			<div class="flex">
 				+
 				<span
@@ -102,11 +102,11 @@
 				}}
 			/>
 		</div>
-		<button class="yuzui w-full -mt-[1px] fixed-right" class:loading> Sign In </button>
+		<button class="yuzui" class:loading> Sign In </button>
 	</form>
 {:else}
 	<form
-		class="flex flex-col"
+		class="yuzui-column"
 		on:submit|preventDefault={async () => {
 			loading = true;
 
@@ -121,7 +121,7 @@
 		}}
 	>
 		{#if !result?.ok}
-			<div class="basic-panel">
+			<div class="yuzui">
 				<input
 					bind:this={nameRef}
 					required
@@ -132,7 +132,7 @@
 				/>
 			</div>
 		{/if}
-		<div class="basic-panel -mt-[1px]">
+		<div class="yuzui">
 			<input
 				bind:this={codeRef}
 				required
@@ -143,7 +143,7 @@
 				bind:value={code}
 			/>
 		</div>
-		<button class="yuzui -mt-[1px] fixed-right" class:loading> Confirm </button>
+		<button class="yuzui" class:loading> Confirm </button>
 	</form>
 {/if}
 

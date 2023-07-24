@@ -24,18 +24,18 @@
 	}
 </script>
 
-<div class="flex items-center">
+<div class="yuzui-row">
 	<a
 		data-sveltekit-noscroll
 		href={$page.data.pathname.split('/').slice(0, -1).join('/')}
-		class="basic-button flex items-center px-3 border-b-0 h-10 w-10 shrink-0"
+		class="yuzui !px-3 h-10 w-10 shrink-0"
 	>
 		{'<-'}
 	</a>
-	<div class="basic-panel border-b-0 border-r-0 p-2 pl-4 w-full -ml-[1px] h-10">
+	<div class="yuzui !border-r-0 p-2 pl-4 w-full -ml-[1px] h-10">
 		<div class="font-semibold">People</div>
 	</div>
-	<div class="basic-panel border-b-0 border-l-0 pr-8 flex items-center h-10">
+	<div class="yuzui !border-l-0 pr-8 flex items-center h-10">
 		<div class="shrink-0 opacity-50 pr-1">Sort by</div>
 		<select
 			class="border-0 font-medium cursor-pointer text-center h-9 text-primary accent-primary"
@@ -50,7 +50,7 @@
 
 <div
 	bind:this={pageRef}
-	class="h-full overflow-y-auto basic-panel -mb-[1px]"
+	class="h-full overflow-y-auto yuzui !border-t-0"
 	on:scroll={() => {
 		if (
 			showNum < attendees.length &&
@@ -61,9 +61,9 @@
 	}}
 >
 	{#each attendees.slice(0, showNum) as attendee, i}
-		<div class="border-b border-panel flex gap-2 items-start -ml-[1px]">
+		<div class="border-b flex gap-2 items-start -ml-[1px]">
 			<ProfilePic
-				class="h-10 w-10 shrink-0 inline-block border-r border-r-panel object-cover bg-dots text-xs"
+				class="h-10 w-10 shrink-0 inline-block border-r object-cover yuzui-bg-dots text-xs"
 				uid={attendee[0]}
 				name={attendee[1].name}
 			/>

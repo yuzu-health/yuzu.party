@@ -24,7 +24,7 @@
 </script>
 
 <div
-	class="all-flush transition-colors app contents text-primary"
+	class="all-flush transition-colors app contents text-primary yuzui-theme"
 	style="
 	--primary: {t.primary};
 	--light: {t.light};
@@ -40,13 +40,13 @@
 	<div class="">
 		<div class="fixed top-0 w-screen h-screen bg-light" />
 		<div
-			class="fixed top-0 w-screen h-screen bg-dashes text-primary text-opacity-10 transition-colors duration-150"
+			class="fixed top-0 w-screen h-screen yuzui-bg-dashes text-primary text-opacity-10 transition-colors duration-150"
 			style="--dashes-gap: 6px;"
 		/>
 	</div>
 
 	{#key pathname}
-		<div class="basic-fadein transition-colors duration-150 text-primary">
+		<div class="yuzui-fadein transition-colors duration-150 text-primary">
 			<slot />
 		</div>
 	{/key}

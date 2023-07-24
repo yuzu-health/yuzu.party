@@ -73,7 +73,7 @@
 		class="h-[calc(100%-90px)] sm:max-h-[34rem] mt-[5px] sm:mt-0 -mr-[1px] flex flex-col"
 		slot="col1"
 	>
-		<div class="basic-panel flex">
+		<div class="yuzui flex">
 			<span class="font-medium p-2 flex flex-row items-center w-full">Parties</span>
 			<span class="float-right pr-2 whitespace-pre">
 				<span class="font-light opacity-50">Sort By</span>
@@ -84,8 +84,9 @@
 				</select>
 			</span>
 		</div>
+
 		<div
-			class="overflow-y-auto h-full pr-2 -mr-2 flex flex-col basic-shadow"
+			class="h-full yuzui yuzui-column"
 			on:scroll={(e) => {
 				// @ts-ignore
 				if (e.target.scrollTop + e.target.clientHeight >= e.target.scrollHeight) {
@@ -94,17 +95,15 @@
 			}}
 		>
 			{#if !parties}
-				<div class="flex-grow basic-panel border-y-0 flex items-center justify-center">
-					fetching...
-				</div>
+				<div class="flex-grow yuzui flex items-center justify-center">fetching...</div>
 			{:else}
 				{#each parties as party, i}
-					<a class="basic-button p-2 block -mt-[1px] font-normal w-full" href="/{party.id}">
+					<a class="yuzui p-2 w-full" href="/{party.id}">
 						<div class="w-[100%] text-ellipsis overflow-hidden mb-2 font-medium">
 							{party.name}
 						</div>
 
-						<div class="opacity-50">
+						<div class="w-[100%] opacity-50">
 							<div>
 								{new Date(party?.date).toLocaleString('en-US', {
 									weekday: 'long',
@@ -123,11 +122,11 @@
 						</div>
 					</a>
 				{/each}
-				<div class="flex-grow basic-panel -mt-[1px]" />
+				<div class="flex-grow yuzui" />
 			{/if}
 		</div>
-		<a href="/" class="basic-button sticky bottom-0 text-center bg-dots -mt-[1px]">
-			<span class="py-0.5 px-2 bg-light font-semibold">Create a party</span>
+		<a href="/" class="yuzui sticky bottom-0 text-center yuzui-bg-dots -mt-[1px]">
+			<span class="px-2 bg-light font-semibold">Create a party</span>
 		</a>
 	</div>
 
@@ -136,13 +135,12 @@
 		slot="col2"
 		on:submit|preventDefault={profileChange}
 	>
-		<div class="flex">
-			<div class="basic-panel p-2 font-medium w-full -mr-[1px]">Profile</div>
-			<button type="button" class="basic-button whitespace-pre" on:click={onLogout}>
-				Sign out
-			</button>
+		<div class="yuzui-row">
+			<div class="yuzui p-2 font-medium w-full -mr-[1px]">Profile</div>
+			<button type="button" class="yuzui whitespace-pre" on:click={onLogout}> Sign out </button>
 		</div>
-		<div class="basic-panel border-b-0 overflow-y-auto h-full -mt-[1px] p-4 flex gap-4 flex-col">
+
+		<div class="yuzui border-b-0 overflow-y-auto h-full -mt-[1px] p-4 flex gap-4 flex-col">
 			<div class="inline-block">
 				<label class="relative cursor-pointer">
 					<div class="h-20 w-20 absolute left-0 top-0 flex items-center justify-center">
@@ -152,7 +150,7 @@
 					</div>
 
 					<ProfilePic
-						class="h-20 w-20 bg-dots border border-current object-cover"
+						class="h-20 w-20 yuzui-bg-dots border border-current object-cover"
 						{src}
 						uid={data?.uid}
 					/>
@@ -167,8 +165,9 @@
 				bind:value={displayName}
 			/>
 		</div>
+
 		<button
-			class="basic-button fixed-right"
+			class="yuzui"
 			disabled={!displayName || (displayName === data?.displayName && !files?.[0])}
 			class:loading={saving}
 		>

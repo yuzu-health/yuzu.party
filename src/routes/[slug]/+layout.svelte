@@ -100,7 +100,7 @@
 
 <Layout>
 	<div slot="col1" class="flex flex-col h-[calc(100%-90px)] sm:max-h-[34rem] mt-[5px] sm:mt-0 z-10">
-		<div class="basic-panel overflow-y-auto flex flex-col h-full">
+		<div class="yuzui overflow-y-auto flex flex-col h-full">
 			{#if data.party?.image}
 				<img
 					class="w-full h-56 object-cover border-b border-panel"
@@ -169,17 +169,17 @@
 			{:else if data?.party?.requireApproval && !['yes', 'maybe'].includes(status || '')}
 				<button
 					on:click={async () => onSubmit('request')}
-					class="basic-button -mr-[1px] h-12 w-full"
+					class="yuzui -mr-[1px] h-12 w-full"
 					class:selected={status === 'request'}
 				>
 					Request to join
 				</button>
 			{:else}
-				<div class="grid grid-cols-3 h-12 font-semibold">
+				<div class="yuzui-row w-full h-12 font-semibold">
 					{#each ['yes', 'maybe', 'no'] as option, i}
 						<button
 							on:click={async () => onSubmit(option)}
-							class="basic-button {i === 2 ? '' : '-mr-[1px]'} capitalize"
+							class="yuzui w-full {i === 2 ? '' : '-mr-[1px]'} capitalize"
 							class:selected={status === option}
 						>
 							{option}

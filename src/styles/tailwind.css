@@ -45,12 +45,6 @@
 		appearance: none;
 	}
 
-	*,
-	::before,
-	::after {
-		@apply border-primary border-opacity-10;
-	}
-
 	.h-screen {
 		max-height: -webkit-fill-available;
 	}
@@ -86,58 +80,5 @@
 @layer utilities {
 	.disabled {
 		@apply pointer-events-none cursor-not-allowed text-primary text-opacity-50;
-	}
-
-	.basic-shadow {
-		position: relative;
-		box-shadow: var(--shadow-size) var(--shadow-size) hsl(var(--panel, currentColor));
-	}
-
-	.flush {
-		transform: translate(calc(-1 * var(--shadow-size)), calc(-1 * var(--shadow-size)));
-	}
-}
-
-@keyframes basic-fadein {
-	0% {
-		opacity: 0;
-		transform: translateY(10px);
-	}
-
-	100% {
-		opacity: 100;
-		transform: translateY(0);
-	}
-}
-
-@layer components {
-	.basic-fadein {
-		animation-name: basic-fadein;
-		animation-duration: 0.55s;
-		animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-		animation-fill-mode: none;
-		will-change: transform, opacity;
-	}
-
-	.basic-panel {
-		@apply bg-light basic-shadow border border-panel;
-	}
-
-	.bg-dots {
-		background-image: radial-gradient(currentColor 20%, transparent 21%),
-			radial-gradient(currentColor 20%, transparent 21%);
-		background-size: calc(var(--size, 3px) * 2) calc(var(--size, 3px) * 2);
-		background-position: 0 0, var(--size, 3px) var(--size, 3px);
-		background-repeat: repeat;
-	}
-
-	.bg-dashes {
-		background: repeating-linear-gradient(
-			45deg,
-			rgba(0, 0, 0, 0) 0px,
-			rgba(0, 0, 0, 0) var(--dashes-gap, 3px),
-			currentColor var(--dashes-gap, 3px),
-			currentColor calc(var(--dashes-gap, 3px) + var(--dashes-width, 1px))
-		);
 	}
 }
