@@ -170,7 +170,7 @@
 				<button
 					on:click={async () => onSubmit('request')}
 					class="yuzui -mr-[1px] h-12 w-full"
-					class:selected={status === 'request'}
+					class:pressed={status === 'request'}
 				>
 					Request to join
 				</button>
@@ -180,7 +180,7 @@
 						<button
 							on:click={async () => onSubmit(option)}
 							class="yuzui w-full {i === 2 ? '' : '-mr-[1px]'} capitalize"
-							class:selected={status === option}
+							class:pressed={status === option}
 						>
 							{option}
 						</button>

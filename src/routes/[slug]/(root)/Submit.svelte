@@ -52,9 +52,7 @@
 		type="submit"
 		class="yuzui after:!right-[14px] !px-3"
 		class:loading={sending}
-		class:disabled={!['yes', 'maybe'].includes(
-			$page?.data?.party?.attendees?.[$page?.data?.uid]?.status
-		)}
+		class:disabled={!$page?.data?.party?.attendees?.[$page?.data?.uid]?.status}
 	>
 		<Send class={`w-4 h-5 ${sending ? 'opacity-0' : ''}`} />
 	</button>

@@ -29,11 +29,7 @@
 	const fetchMessages = async () => {
 		loadingMessage = 'fetching...';
 
-		if (
-			!data.token ||
-			!data.party?.id ||
-			!['yes', 'maybe'].includes(data.party.attendees?.[data.uid]?.status)
-		) {
+		if (!data.token || !data.party?.id || !data.party.attendees?.[data.uid]?.status) {
 			messages = undefined;
 			loadingMessage = 'RSVP to see and send messages';
 			return;
@@ -90,7 +86,7 @@
 
 <div class="flex justify-between items-center font-medium -mb-[1px]">
 	<div class="yuzui pl-4 h-10 w-full -mr-[1px] flex items-center border-b-0">Activity</div>
-	{#if ['yes', 'maybe'].includes(data?.party?.attendees?.[data.uid]?.status || '')}
+	{#if data?.party?.attendees?.[data.uid]?.status}
 		{#each attending.splice(0, 3) as [id, { name }]}
 			<ProfilePic class="w-10 h-10 yuzui -mr-[1px] object-cover yuzui-bg-dots" uid={id} {name} />
 		{/each}
