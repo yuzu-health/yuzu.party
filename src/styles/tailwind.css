@@ -3,29 +3,12 @@
 @tailwind utilities;
 
 @layer base {
-	:root {
-		--primary: 0 0% 0%;
-		--accent: 14 100% 50%;
-		--light: 0 0% 93%;
-		--panel: 0 0% 0%;
-
-		--shadow-size: 4px;
-	}
-
 	html {
 		-webkit-tap-highlight-color: transparent;
 	}
 
 	body {
 		@apply text-primary bg-light min-h-full w-full overflow-hidden fixed;
-	}
-
-	::-moz-selection {
-		@apply text-light bg-accent;
-	}
-
-	::selection {
-		@apply text-light bg-accent;
 	}
 
 	a {

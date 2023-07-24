@@ -1,4 +1,4 @@
-<div class="bg-light py-1 px-2 inline-flex items-center gap-2">
+<div class="bg-inherit py-1 px-2 inline-flex items-center gap-2">
 	<span class="whitespace-pre text-primary opacity-50">Created by</span>
 	<a
 		href="https://yuzu.health"
