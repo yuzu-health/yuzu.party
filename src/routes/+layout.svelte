@@ -7,8 +7,6 @@
 	import User from '$lib/components/icons/User.svelte';
 	import Palette from '$lib/components/icons/Palette.svelte';
 	import { browser } from '$app/environment';
-	import store from './(create)/[...rest]/store';
-	import themes from '$lib/themes';
 
 	export let data;
 
@@ -22,7 +20,7 @@
 	<div class="">
 		<div class="fixed top-0 w-screen h-screen bg-light" />
 		<div
-			class="fixed top-0 w-screen h-screen yuzui-bg-dashes text-primary text-opacity-10 duration-150"
+			class="fixed top-0 w-screen h-screen yuzui-bg-dashes duration-150"
 			style="--dashes-gap: 6px;"
 		/>
 	</div>
