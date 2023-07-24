@@ -24,8 +24,14 @@
 </script>
 
 <div
-	class="transition-colors app contents text-primary"
-	style="--primary: {t.primary}; --light: {t.light}; --accent: {t.accent}; --panel: {t.panel};"
+	class="all-flush transition-colors app contents text-primary"
+	style="
+	--primary: {t.primary};
+	--light: {t.light};
+	--background-color: hsl({t.light});
+	--accent: {t.accent};
+	--panel: {t.panel};
+"
 >
 	<div class="">
 		<div class="fixed top-0 w-screen h-screen bg-light" />

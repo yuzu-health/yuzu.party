@@ -102,7 +102,7 @@
 				}}
 			/>
 		</div>
-		<button class="basic-button w-full -mt-[1px] fixed-right" class:loading> Sign In </button>
+		<button class="yuzui w-full -mt-[1px] fixed-right" class:loading> Sign In </button>
 	</form>
 {:else}
 	<form
@@ -143,7 +143,7 @@
 				bind:value={code}
 			/>
 		</div>
-		<button class="basic-button -mt-[1px] fixed-right" class:loading> Confirm </button>
+		<button class="yuzui -mt-[1px]" class:loading> Confirm </button>
 	</form>
 {/if}
 
