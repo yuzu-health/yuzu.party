@@ -15,28 +15,10 @@
 	let theme = 0;
 	if (browser) theme = Number(localStorage.getItem('theme') || 0);
 
-	$: t =
-		data.pathname.startsWith('/create') && $store.theme
-			? $store.theme
-			: // @ts-ignore
-			  data?.party?.theme || themes[theme];
 	$: pathname = data.pathname.split('/')[1];
 </script>
 
-<div
-	class="all-flush transition-colors app contents text-primary yuzui-theme"
-	style="
-	--primary: {t.primary};
-	--light: {t.light};
-	--accent: {t.accent};
-	--panel: {t.panel};
-
-	--yuzui-primary: {t.primary};
-	--yuzui-light: {t.light};
-	--yuzui-accent: {t.accent};
-	--yuzui-panel: {t.panel};
-"
->
+<div class="all-flush transition-colors app contents yuzui-theme yuzui-theme-{theme}">
 	<div class="">
 		<div class="fixed top-0 w-screen h-screen bg-light" />
 		<div

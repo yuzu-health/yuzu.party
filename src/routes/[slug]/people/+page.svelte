@@ -32,7 +32,7 @@
 	>
 		{'<-'}
 	</a>
-	<div class="yuzui !border-r-0 p-2 pl-4 w-full -ml-[1px] h-10">
+	<div class="yuzui !border-r-0 p-2 pl-4 w-full h-10">
 		<div class="font-semibold">People</div>
 	</div>
 	<div class="yuzui !border-l-0 pr-8 flex items-center h-10">

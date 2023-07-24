@@ -140,7 +140,7 @@
 			<button type="button" class="yuzui whitespace-pre" on:click={onLogout}> Sign out </button>
 		</div>
 
-		<div class="yuzui border-b-0 overflow-y-auto h-full -mt-[1px] p-4 flex gap-4 flex-col">
+		<div class="yuzui !border-b-0 overflow-y-auto h-full -mt-[1px] p-4 flex gap-4 flex-col">
 			<div class="inline-block">
 				<label class="relative cursor-pointer">
 					<div class="h-20 w-20 absolute left-0 top-0 flex items-center justify-center">

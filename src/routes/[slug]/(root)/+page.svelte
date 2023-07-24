@@ -118,7 +118,7 @@
 			showScrollBottom = false;
 		}
 	}}
-	class="h-full yuzui overflow-y-auto border-b-0"
+	class="h-full yuzui overflow-y-auto !border-b-0"
 >
 	{#if typeof messages === 'undefined'}
 		<div
@@ -128,16 +128,16 @@
 			{loadingMessage}
 		</div>
 	{:else if messages.length}
-		<div in:fade|local={{ delay: 300 }}>
+		<div class="divide-y" in:fade|local={{ delay: 300 }}>
 			{#each messages.slice(-messageLimit) as message (message.id)}
 				{#if data.party?.attendees?.[message.uid]?.status !== 'block' && !deletedMessages[message.id]}
-					<div class="message flex border-y -mt-[1px]" class:pointer-events-none={message.hidden}>
+					<div class="message flex" class:pointer-events-none={message.hidden}>
 						<ProfilePic
 							uid={message.uid}
 							name={data.party?.attendees?.[message.uid]?.name || ''}
-							class="shrink-0 h-16 w-16 border-b object-cover -mb-[1px]"
+							class="shrink-0 h-16 w-16 object-cover "
 						/>
-						<div class="p-2 -mb-[1px] border-l w-full">
+						<div class="p-2 border-l w-full">
 							<div class="flex items-center gap-2 w-full flex-wrap">
 								<span class="text-sm font-semibold" class:bg-primary={message.hidden}>
 									{data.party?.attendees?.[message.uid]?.name || '???'}
