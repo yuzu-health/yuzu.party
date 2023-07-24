@@ -118,7 +118,7 @@
 			showScrollBottom = false;
 		}
 	}}
-	class="h-full yuzui overflow-y-auto"
+	class="h-full yuzui overflow-y-auto border-b-0"
 >
 	{#if typeof messages === 'undefined'}
 		<div
