@@ -98,7 +98,7 @@
 				<div class="flex-grow yuzui flex items-center justify-center">fetching...</div>
 			{:else}
 				{#each parties as party, i}
-					<a class="yuzui p-2 w-full" href="/{party.id}">
+					<a class="yuzui block p-2 w-full" href="/{party.id}">
 						<div class="w-[100%] text-ellipsis overflow-hidden mb-2 font-medium">
 							{party.name}
 						</div>
