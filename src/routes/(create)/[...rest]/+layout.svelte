@@ -54,7 +54,7 @@
 	<div class="yuzui-column h-[calc(100%-90px)] max-h-[34rem] mt-[5px] sm:mt-0 w-full">
 		<form
 			id="create-party"
-			class="w-full h-full flex-grow yuzui-column yuzui"
+			class="w-full shrink flex-grow yuzui-column yuzui"
 			on:submit|preventDefault={() => {
 				if (!data.loggedIn) return (showLogin = true);
 				onSubmit();

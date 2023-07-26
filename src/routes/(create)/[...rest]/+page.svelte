@@ -129,7 +129,7 @@
 	<input class="ml-auto" bind:checked={$store.requireApproval} type="checkbox" />
 </label>
 
-<div class="flex flex-grow py-2 px-2 h-full yuzui !border-b-0">
+<div class="flex flex-grow py-2 px-2 h-full yuzui !border-b-0 shrink">
 	<div class="font-medium w-24 shrink-0">Description</div>
 	<div
 		contenteditable="true"

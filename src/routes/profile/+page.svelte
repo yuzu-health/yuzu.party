@@ -70,7 +70,7 @@
 
 <Layout>
 	<div
-		class="h-[calc(100%-90px)] sm:max-h-[34rem] mt-[5px] sm:mt-0 -mr-[1px] flex flex-col"
+		class="h-[calc(100%-90px)] sm:max-h-[34rem] mt-[5px] sm:mt-0 -mr-[1px] yuzui-column"
 		slot="col1"
 	>
 		<div class="yuzui flex">
@@ -86,7 +86,7 @@
 		</div>
 
 		<div
-			class="h-full yuzui yuzui-column"
+			class="yuzui yuzui-column grow"
 			on:scroll={(e) => {
 				// @ts-ignore
 				if (e.target.scrollTop + e.target.clientHeight >= e.target.scrollHeight) {
@@ -94,8 +94,8 @@
 				}
 			}}
 		>
-			{#if !parties}
-				<div class="flex-grow yuzui flex items-center justify-center">fetching...</div>
+			{#if !parties?.length}
+				<div class="grow yuzui flex items-center justify-center">fetching...</div>
 			{:else}
 				{#each parties as party, i}
 					<a class="yuzui block p-2 w-full" href="/{party.id}">
