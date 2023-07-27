@@ -95,7 +95,7 @@
 			}}
 		>
 			{#if !parties?.length}
-				<div class="grow yuzui flex items-center justify-center">fetching...</div>
+				<div class="grow yuzui flex items-center justify-center h-full">fetching...</div>
 			{:else}
 				{#each parties as party, i}
 					<a class="yuzui block p-2 w-full" href="/{party.id}">
@@ -122,7 +122,6 @@
 						</div>
 					</a>
 				{/each}
-				<div class="flex-grow yuzui" />
 			{/if}
 		</div>
 		<a href="/" class="yuzui sticky bottom-0 text-center yuzui-bg-dots -mt-[1px]">
