@@ -16,11 +16,11 @@
 	$: pathname = data.pathname.split('/')[1];
 </script>
 
-<div class="all-flush app contents yuzui-theme yuzui-theme-{theme}">
+<div class="all-flush app contents yuzui-theme yuzui-theme-{theme} -with-panel">
 	<div class="">
 		<div class="fixed top-0 w-screen h-screen bg-light" />
 		<div
-			class="fixed top-0 w-screen h-screen yuzui-bg-dashes duration-150"
+			class="fixed top-0 w-screen h-screen yuzui-bg-dashes duration-150 -use-panel"
 			style="--dashes-gap: 6px;"
 		/>
 	</div>
