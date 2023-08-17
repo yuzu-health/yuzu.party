@@ -7,6 +7,7 @@
 	import User from '$lib/components/icons/User.svelte';
 	import Palette from '$lib/components/icons/Palette.svelte';
 	import { browser } from '$app/environment';
+	import '@yuzu-health/yuzui';
 
 	export let data;
 

@@ -36,6 +36,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@yuzu-health/yuzui": "^1.19.0",
 		"bad-words": "^3.0.4",
 		"browser-image-compression": "^2.0.2",
 		"cleave.js": "^1.6.0",
