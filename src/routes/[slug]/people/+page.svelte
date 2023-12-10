@@ -3,6 +3,8 @@
 	import { page } from '$app/stores';
 	import { timeSince } from '$lib/utils';
 
+	export let data;
+
 	let pageRef: HTMLElement;
 	let sort = $page.url.searchParams.get('sort') || 'name';
 	let showNum = 20;
@@ -61,7 +63,7 @@
 	}}
 >
 	{#each attendees.slice(0, showNum) as attendee, i}
-		<div class="border-b flex gap-2 items-start -ml-[1px]">
+		<div class="border-b flex gap-2 -ml-[1px] items-center">
 			<ProfilePic
 				class="h-10 w-10 shrink-0 inline-block border-r object-cover yuzui-bg-dots text-xs"
 				uid={attendee[0]}
@@ -75,6 +77,10 @@
 				>
 			</div>
 			{#if isHost}
+				<div>
+					{data.numbers?.[attendee[0]]}
+				</div>
+
 				<select
 					class="text-right h-10 pr-2 font-medium underline cursor-pointer appearance-none accent-primary"
 					style="direction: ltr;"
