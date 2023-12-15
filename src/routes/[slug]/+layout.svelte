@@ -52,33 +52,32 @@
 	});
 
 	const onShare = () => {
+		const partyURL = window.location.origin + '/' + data.party?.id;
+
 		if (navigator.share) {
-			navigator.share({
-				title: data.party?.name,
-				url: window.location.href
-			});
+			navigator.share({ title: data.party?.name, url: partyURL });
 		} else {
-			navigator.clipboard.writeText(window.location.href);
+			navigator.clipboard.writeText(partyURL);
 			add('Link copied to clipboard');
 		}
 	};
 
 	const generateDateString = (date?: number) =>
-		!date ? '' : (
-			new Date(date).toLocaleString(undefined, {
-				weekday: 'short',
-				month: 'long',
-				day: 'numeric',
-				hour: 'numeric',
-				minute: 'numeric'
-			})
-		);
+		!date
+			? ''
+			: new Date(date).toLocaleString(undefined, {
+					weekday: 'short',
+					month: 'long',
+					day: 'numeric',
+					hour: 'numeric',
+					minute: 'numeric'
+				});
 
 	$: startTime = data.party?.date ? generateDateString(data.party?.date) : 'hidden';
 	$: endTime =
-		startTime.split(' at ')[0] === generateDateString(data.party?.end).split(' at ')[0] ?
-			generateDateString(data.party?.end).split(' at ')[1]
-		:	generateDateString(data.party?.end);
+		startTime.split(' at ')[0] === generateDateString(data.party?.end).split(' at ')[0]
+			? generateDateString(data.party?.end).split(' at ')[1]
+			: generateDateString(data.party?.end);
 
 	$: timezone = new Date()
 		?.toLocaleDateString(undefined, { day: '2-digit', timeZoneName: 'long' })
