@@ -51,7 +51,7 @@
 </script>
 
 <div class="flex flex-col items-center justify-center w-full h-screen max-w-screen-xs mx-auto px-2">
-	<div class="yuzui-column h-[calc(100%-90px)] max-h-[34rem] mt-[5px] sm:mt-0 w-full">
+	<div class="yuzui-column h-[calc(100%-90px)] max-h-[36rem] mt-[5px] sm:mt-0 w-full">
 		<form
 			id="create-party"
 			class="w-full shrink flex-grow yuzui-column yuzui !border-b-0"

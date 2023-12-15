@@ -71,7 +71,7 @@
 
 <Layout>
 	<div
-		class="h-[calc(100%-90px)] sm:max-h-[34rem] mt-[5px] sm:mt-0 -mr-[1px] yuzui-column"
+		class="h-[calc(100%-90px)] sm:max-h-[36rem] mt-[5px] sm:mt-0 -mr-[1px] yuzui-column"
 		slot="col1"
 	>
 		<div class="yuzui flex">
@@ -131,7 +131,7 @@
 	</div>
 
 	<form
-		class="h-[calc(100%-90px)] sm:max-h-[34rem] mt-[5px] sm:mt-0 flex flex-col"
+		class="h-[calc(100%-90px)] sm:max-h-[36rem] mt-[5px] sm:mt-0 flex flex-col"
 		slot="col2"
 		on:submit|preventDefault={profileChange}
 	>

@@ -100,7 +100,7 @@
 </svelte:head>
 
 <Layout>
-	<div slot="col1" class="flex flex-col h-[calc(100%-90px)] sm:max-h-[34rem] mt-[5px] sm:mt-0 z-10">
+	<div slot="col1" class="flex flex-col h-[calc(100%-90px)] sm:max-h-[36rem] mt-[5px] sm:mt-0 z-10">
 		<div class="yuzui overflow-y-auto flex flex-col h-full">
 			{#if data.party?.image}
 				<img
@@ -203,7 +203,7 @@
 		</div>
 	</div>
 
-	<div slot="col2" class="h-[calc(100%-90px)] sm:max-h-[34rem] mt-[5px] sm:mt-0 -ml-[1px] z-10">
+	<div slot="col2" class="h-[calc(100%-90px)] sm:max-h-[36rem] mt-[5px] sm:mt-0 -ml-[1px] z-10">
 		{#key pathname}
 			<div
 				in:fly|local={{ duration: 500, y: 20, opacity: 0 }}
