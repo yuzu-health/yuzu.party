@@ -3,8 +3,6 @@
 	import { page } from '$app/stores';
 	import { timeSince } from '$lib/utils';
 
-	export let data;
-
 	let pageRef: HTMLElement;
 	let sort = $page.url.searchParams.get('sort') || 'name';
 	let showNum = 20;
@@ -77,10 +75,6 @@
 				>
 			</div>
 			{#if isHost}
-				<div>
-					{data.numbers?.[attendee[0]]}
-				</div>
-
 				<select
 					class="text-right h-10 pr-2 font-medium underline cursor-pointer appearance-none accent-primary"
 					style="direction: ltr;"
