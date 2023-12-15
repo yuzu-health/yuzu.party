@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import { fade } from 'svelte/transition';
 	import compress from 'browser-image-compression';
 
 	import { invalidateAll } from '$app/navigation';
@@ -163,6 +164,20 @@
 				class="focus-visible:outline-0 border-b inline-block pb-1"
 				bind:value={displayName}
 			/>
+
+			{#await data.mutuals then mutuals}
+				<div in:fade class="space-y-1 mt-4">
+					{#each mutuals as mutual}
+						<div class="flex items-center gap-2">
+							<ProfilePic class="h-6 w-6 border" uid={mutual.uid} />
+							{mutual.name}
+							<span class="opacity-50"
+								>{mutual.count} mutual {mutual.count === 1 ? 'party' : 'parties'}</span
+							>
+						</div>
+					{/each}
+				</div>
+			{/await}
 		</div>
 
 		<button
