@@ -64,21 +64,21 @@
 	};
 
 	const generateDateString = (date?: number) =>
-		!date
-			? ''
-			: new Date(date).toLocaleString(undefined, {
-					weekday: 'short',
-					month: 'long',
-					day: 'numeric',
-					hour: 'numeric',
-					minute: 'numeric'
-				});
+		!date ? '' : (
+			new Date(date).toLocaleString(undefined, {
+				weekday: 'short',
+				month: 'long',
+				day: 'numeric',
+				hour: 'numeric',
+				minute: 'numeric'
+			})
+		);
 
 	$: startTime = data.party?.date ? generateDateString(data.party?.date) : 'hidden';
 	$: endTime =
-		startTime.split(' at ')[0] === generateDateString(data.party?.end).split(' at ')[0]
-			? generateDateString(data.party?.end).split(' at ')[1]
-			: generateDateString(data.party?.end);
+		startTime.split(' at ')[0] === generateDateString(data.party?.end).split(' at ')[0] ?
+			generateDateString(data.party?.end).split(' at ')[1]
+		:	generateDateString(data.party?.end);
 
 	$: timezone = new Date()
 		?.toLocaleDateString(undefined, { day: '2-digit', timeZoneName: 'long' })

@@ -27,7 +27,10 @@ export const load = async ({ url, locals, params }) => {
 			party: {
 				id: partyGet.id,
 				...party,
-				attendees: !uid ? {} : isHost ? party.attendees : filterAttendees(party.attendees, uid),
+				attendees:
+					!uid ? {}
+					: isHost ? party.attendees
+					: filterAttendees(party.attendees, uid),
 				location: isAttending ? party?.location : 'hidden'
 			} as Party
 		};

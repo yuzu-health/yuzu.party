@@ -28,13 +28,10 @@ export const POST = async ({ request, locals, url }) => {
 	if (status === 'request' && ['yes', 'maybe'].includes(currentStatus)) return new Response('OK');
 
 	const alert =
-		status === 'yes'
-			? 'is attending'
-			: status === 'maybe'
-			? 'might attend'
-			: status === 'no'
-			? 'is not attending'
-			: '';
+		status === 'yes' ? 'is attending'
+		: status === 'maybe' ? 'might attend'
+		: status === 'no' ? 'is not attending'
+		: '';
 
 	const user = await auth.getUser(uid);
 
@@ -45,9 +42,8 @@ export const POST = async ({ request, locals, url }) => {
 			name: user.displayName || '',
 			alerted: status === 'yes' || undefined
 		},
-		guests: ['yes', 'maybe'].includes(status)
-			? FieldValue.arrayUnion(uid)
-			: FieldValue.arrayRemove(uid)
+		guests:
+			['yes', 'maybe'].includes(status) ? FieldValue.arrayUnion(uid) : FieldValue.arrayRemove(uid)
 	};
 
 	if (isHost || locals.session?.uid === uid) {
