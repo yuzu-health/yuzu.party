@@ -8,7 +8,7 @@
 	let showNum = 20;
 	let isHost = $page.data.party?.hosts.includes($page.data.uid);
 
-	const ranking = { request: 'a', yes: 'b', maybe: 'c', no: 'd', blocked: 'e' };
+	const ranking = { request: 'a', host: 'b', yes: 'c', maybe: 'd', no: 'e', blocked: 'f' };
 
 	$: attendees = Object.entries(($page.data.party as Party)?.attendees || {}).sort((a, b) => {
 		if (sort === 'name') return a[1].name?.localeCompare(b[1].name);
@@ -78,7 +78,7 @@
 				<select
 					class="text-right h-10 pr-2 font-medium underline cursor-pointer appearance-none accent-primary"
 					style="direction: ltr;"
-					value={attendee[1].status}
+					value={$page.data.party?.hosts.includes(attendee[0]) ? 'host' : attendee[1].status}
 					on:change={(e) => {
 						fetch('/api/party/attend', {
 							method: 'POST',
@@ -96,6 +96,7 @@
 					<option value="maybe">Maybe</option>
 					<option value="no">No</option>
 					<option value="block">Block</option>
+					<option disabled={attendee[0] === $page.data.party.createdBy} value="host">Host</option>
 					<option disabled value="request">Requested</option>
 				</select>
 			{/if}
