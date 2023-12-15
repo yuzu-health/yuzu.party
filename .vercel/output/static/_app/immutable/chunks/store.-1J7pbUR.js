@@ -1,0 +1,1 @@
+import{w as i}from"./index.oOdcuu6N.js";const o=i([]),c=(t,s={})=>{const d={...{id:Math.floor(Math.random()*1e4),type:"info",timeout:4e3},message:t,...s};o.update(e=>[...e,d])},f=t=>{o.update(s=>s.filter(a=>a.id!==t))};export{c as a,f as d,o as t};

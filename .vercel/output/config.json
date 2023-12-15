@@ -1,0 +1,71 @@
+{
+	"version": 3,
+	"routes": [
+		{
+			"src": "/_app/immutable/.+",
+			"headers": {
+				"cache-control": "public, immutable, max-age=31536000"
+			}
+		},
+		{
+			"handle": "filesystem"
+		},
+		{
+			"src": "^/api/auth/?(?:/__data.json)?$",
+			"dest": "/fn-0"
+		},
+		{
+			"src": "^/api/party/attend/?(?:/__data.json)?$",
+			"dest": "/fn-0"
+		},
+		{
+			"src": "^/api/party/create/?(?:/__data.json)?$",
+			"dest": "/fn-0"
+		},
+		{
+			"src": "^/api/party/list/?(?:/__data.json)?$",
+			"dest": "/fn-0"
+		},
+		{
+			"src": "^/api/party/message/?(?:/__data.json)?$",
+			"dest": "/fn-0"
+		},
+		{
+			"src": "^/api/profile/?(?:/__data.json)?$",
+			"dest": "/fn-0"
+		},
+		{
+			"src": "^/api/remind/?(?:/__data.json)?$",
+			"dest": "/fn-1"
+		},
+		{
+			"src": "^/profile/?(?:/__data.json)?$",
+			"dest": "/fn-0"
+		},
+		{
+			"src": "^/signin/?(?:/__data.json)?$",
+			"dest": "/fn-0"
+		},
+		{
+			"src": "^/signout/?(?:/__data.json)?$",
+			"dest": "/fn-0"
+		},
+		{
+			"src": "^/([^/]+?)/?(?:/__data.json)?$",
+			"dest": "/fn-0"
+		},
+		{
+			"src": "^/([^/]+?)/people/?(?:/__data.json)?$",
+			"dest": "/fn-0"
+		},
+		{
+			"src": "^(?:/(.*))?/?(?:/__data.json)?$",
+			"dest": "/fn-0"
+		},
+		{
+			"src": "/.*",
+			"dest": "/fn"
+		}
+	],
+	"overrides": {}
+}

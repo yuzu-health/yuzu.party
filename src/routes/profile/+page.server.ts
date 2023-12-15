@@ -5,7 +5,7 @@ export const load = async ({ locals }) => {
 	const uid = locals.session?.uid;
 
 	if (!uid) {
-		throw redirect(303, '/signin');
+		redirect(303, '/signin');
 	}
 
 	return {
