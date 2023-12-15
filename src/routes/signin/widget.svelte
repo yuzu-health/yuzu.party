@@ -20,9 +20,9 @@
 
 	const dispatch = createEventDispatcher();
 
-	onMount(async () => {
+	onMount(() => {
 		phoneRef?.focus();
-		window.recaptchaVerifier = new RecaptchaVerifier('recaptcha-div', { size: 'invisible' }, auth);
+		window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-div', { size: 'invisible' });
 		window.recaptchaVerifier.render();
 		return () => {
 			window.recaptchaVerifier.clear();

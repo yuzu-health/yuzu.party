@@ -19,6 +19,7 @@
 
 	let status: string | undefined;
 	let showSection = '';
+	let showRSVP = false;
 
 	const onSubmit = async (newStatus?: string, force = false) => {
 		if (newStatus) status = newStatus;
@@ -42,6 +43,7 @@
 		if (newStatus === 'request') add("You've requested to join");
 
 		showSection = '';
+		showRSVP = false;
 		await invalidateAll();
 	};
 
@@ -70,7 +72,7 @@
 					day: 'numeric',
 					hour: 'numeric',
 					minute: 'numeric'
-			  });
+				});
 
 	$: startTime = data.party?.date ? generateDateString(data.party?.date) : 'hidden';
 	$: endTime =
@@ -174,8 +176,20 @@
 				>
 					Request to join
 				</button>
+			{:else if ['yes', 'maybe', 'no'].includes(status || '') && !showRSVP}
+				<button
+					class="yuzui -mr-[1px] h-12 w-full"
+					on:click={() => (showRSVP = true)}
+					data-tooltip="Click to change your status"
+					in:fly|local={{ duration: 500, y: 5, opacity: 0 }}
+				>
+					You're a {status}!
+				</button>
 			{:else}
-				<div class="yuzui-row w-full h-12 font-semibold">
+				<div
+					class="yuzui-row w-full h-12 font-semibold"
+					in:fly|local={{ duration: 500, y: 5, opacity: 0 }}
+				>
 					{#each ['yes', 'maybe', 'no'] as option, i}
 						<button
 							on:click={async () => onSubmit(option)}
