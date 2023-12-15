@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { slide } from 'svelte/transition';
 	import Camera from '$lib/components/icons/Camera.svelte';
 	import X from '$lib/components/icons/X.svelte';
 	import store from './store';
@@ -97,7 +96,7 @@
 </div>
 
 {#if showEnd}
-	<div in:slide class="flex border-b yuzui items-center pl-2 w-full">
+	<div class="flex border-b yuzui items-center pl-2 w-full">
 		<div class="font-medium w-24 py-2 shrink-0">End</div>
 		<input
 			value={generateDateTimeLocal($store.end)}
