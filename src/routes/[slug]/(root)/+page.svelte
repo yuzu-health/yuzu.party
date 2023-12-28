@@ -123,10 +123,10 @@
 			{loadingMessage}
 		</div>
 	{:else if messages.length}
-		<div class="divide-y" in:fade|local={{ delay: 300 }}>
+		<div in:fade|local={{ delay: 300 }}>
 			{#each messages.slice(-messageLimit) as message (message.id)}
 				{#if data.party?.attendees?.[message.uid]?.status !== 'block' && !deletedMessages[message.id]}
-					<div class="message flex" class:pointer-events-none={message.hidden}>
+					<div class="message flex border-b" class:pointer-events-none={message.hidden}>
 						<ProfilePic
 							uid={message.uid}
 							name={data.party?.attendees?.[message.uid]?.name || ''}

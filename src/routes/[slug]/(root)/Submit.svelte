@@ -41,7 +41,7 @@
 		<button
 			data-tooltip="Make message a text alert"
 			type="button"
-			class="yuzui !px-2"
+			class="yuzui !px-2.5"
 			on:click={() => (textAlert = !textAlert)}
 		>
 			<Phone class="w-6 h-6 {!textAlert ? 'opacity-50' : ''}" />
@@ -49,7 +49,7 @@
 	{/if}
 	<button
 		type="submit"
-		class="yuzui after:!right-[14px] !px-3"
+		class="yuzui after:!right-[14px] !px-3.5"
 		class:loading={sending}
 		class:disabled={!$page?.data?.party?.attendees?.[$page?.data?.uid]?.status}
 	>
