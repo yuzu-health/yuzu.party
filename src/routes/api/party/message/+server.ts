@@ -55,7 +55,7 @@ export const DELETE = async ({ request, locals }) => {
 	const party = snapshot.data();
 
 	const blockSnapshot = await ref.collection('blocks').doc(blockId).get();
-	const block = blockSnapshot.data();
+	const block = blockSnapshot.data() as Block;
 
 	if (
 		!party?.hosts.includes(locals.session?.uid) &&

@@ -48,6 +48,19 @@ declare global {
 			};
 		};
 	}
+
+	interface Block {
+		id: string;
+		createdAt: number;
+		messages: {
+			[id: string]: {
+				message: string;
+				alert: string;
+				timestamp: number;
+				uid: string;
+			};
+		};
+	}
 }
 
 export {};

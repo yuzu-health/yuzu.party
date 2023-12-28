@@ -12,10 +12,10 @@ export const addMessage = async ({ uid = '', message = '', alert = '', partyId =
 		uid
 	};
 
-	const blocks: any[] = [];
+	const blocks: Block[] = [];
 	const ref = db.collection('parties').doc(partyId).collection('blocks');
 	const snapshot = await ref.orderBy('createdAt', 'desc').limit(1).get();
-	snapshot.forEach((doc) => blocks.push({ id: doc.id, ...doc.data() }));
+	snapshot.forEach((doc) => blocks.push({ id: doc.id, ...doc.data() } as Block));
 
 	if (snapshot.size && Object.values(blocks[0].messages).length < 1000) {
 		await ref.doc(blocks[0].id).set({ messages: { [uuid()]: newMessage } }, { merge: true });

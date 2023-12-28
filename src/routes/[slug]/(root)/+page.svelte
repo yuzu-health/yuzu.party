@@ -38,11 +38,11 @@
 
 		const q = query(collection(db, 'parties', data.party?.id, 'blocks'));
 		const unsubscribe = onSnapshot(q, async (snap) => {
-			const blocks: any[] = [];
-			snap.forEach((doc) => blocks.push({ blockId: doc.id, ...doc.data() }));
+			const blocks: Block[] = [];
+			snap.forEach((doc) => blocks.push({ id: doc.id, ...doc.data() } as Block));
 			const cleanedMessages = blocks
-				.map(({ messages, blockId }) =>
-					Object.entries(messages).map(([id, message]) => ({ id, blockId, ...(message as any) }))
+				.map(({ messages, id: blockId }) =>
+					Object.entries(messages).map(([id, message]) => ({ id, blockId, ...message }))
 				)
 				.flat()
 				.sort((a, b) => a.timestamp - b.timestamp);
