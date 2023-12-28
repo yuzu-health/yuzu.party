@@ -41,7 +41,7 @@
 		>
 			<Palette class="h-4 w-5" />
 		</button>
-		<a href={data.uid ? '/profile' : '/'} class="z-50 mx-auto">
+		<a href="/" class="z-50 mx-auto">
 			<YuzuParty class="h-7 py-1 pt-2 px-2 bg-light inline" />
 		</a>
 
