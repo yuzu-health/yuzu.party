@@ -1,6 +1,5 @@
 <script lang="ts">
-	import Camera from '$lib/components/icons/Camera.svelte';
-	import X from '$lib/components/icons/X.svelte';
+	import { Camera, X } from '$lib/components/icons';
 	import store from './store';
 
 	$: src = $store.files?.[0] ? URL.createObjectURL($store.files?.[0]) : $store.image;

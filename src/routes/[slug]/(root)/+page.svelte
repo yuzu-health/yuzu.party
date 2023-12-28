@@ -8,9 +8,8 @@
 	import { page } from '$app/stores';
 	import { browser } from '$app/environment';
 	import { timeSince } from '$lib/utils';
-	import ProfilePic from '$lib/components/ProfilePic.svelte';
+	import { ProfilePic, Trash } from '$lib/components';
 	import Submit from './Submit.svelte';
-	import Trash from '$lib/components/icons/Trash.svelte';
 
 	export let data;
 

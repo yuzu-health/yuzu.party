@@ -3,6 +3,7 @@
 	"version": "0.0.1",
 	"dependencies": {
 		"@yuzu-health/yuzui": "^1.22.1",
+		"@zerodevx/svelte-toast": "^0.9.5",
 		"bad-words": "^3.0.4",
 		"browser-image-compression": "^2.0.2",
 		"cleave.js": "^1.6.0",

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import ProfilePic from '$lib/components/ProfilePic.svelte';
+	import { ProfilePic } from '$lib/components';
 	import { page } from '$app/stores';
 	import { timeSince } from '$lib/utils';
 

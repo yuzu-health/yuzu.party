@@ -3,7 +3,7 @@
 	import type { ConfirmationResult } from 'firebase/auth';
 	import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
 
-	import { add } from '$lib/components/Toast';
+	import { toast } from '@zerodevx/svelte-toast';
 	import { cleave } from '$lib/utils';
 	import { auth } from '$lib/firebase';
 
@@ -38,7 +38,7 @@
 			else if (codeRef) codeRef.focus();
 		} catch (e) {
 			console.log(e);
-			add('There was an issue verifiying your number');
+			toast.push('There was an issue verifiying your number');
 		}
 		loading = false;
 	};
@@ -115,7 +115,7 @@
 				dispatch('signin');
 			} catch (e) {
 				code = '';
-				add('Invalid code');
+				toast.push('Invalid code');
 				loading = false;
 			}
 		}}

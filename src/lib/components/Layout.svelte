@@ -5,9 +5,7 @@
 
 <div
 	on:scroll={() => {
-		if (left !== layoutRef.scrollLeft < layoutRef.clientWidth / 2) {
-			left = !left;
-		}
+		if (left !== layoutRef.scrollLeft < layoutRef.clientWidth / 2) left = !left;
 	}}
 	bind:this={layoutRef}
 	class="relative z-10 snap-x snap-mandatory w-screen lg:max-w-screen-lg flex overflow-x-auto lg:overflow-x-visible h-screen overflow-y-none lg:justify-center lg:items-center lg:mx-auto"

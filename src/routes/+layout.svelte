@@ -1,11 +1,6 @@
 <script lang="ts">
 	import '../app.css';
-	import ProfilePic from '$lib/components/ProfilePic.svelte';
-	import Toast from '$lib/components/Toast/Container.svelte';
-	import Logo from '$lib/components/Logo.svelte';
-	import Footer from '$lib/components/Footer.svelte';
-	import User from '$lib/components/icons/User.svelte';
-	import Palette from '$lib/components/icons/Palette.svelte';
+	import { ProfilePic, YuzuParty, Footer, User, Palette, Toast } from '$lib/components';
 	import { browser } from '$app/environment';
 	import '@yuzu-health/yuzui';
 
@@ -18,6 +13,8 @@
 </script>
 
 <div class="all-flush app contents yuzui-theme yuzui-theme-{theme} -with-panel">
+	<Toast />
+
 	<div class="">
 		<div class="fixed top-0 w-screen h-screen bg-light" />
 		<div
@@ -44,8 +41,8 @@
 		>
 			<Palette class="h-4 w-5" />
 		</button>
-		<a href="/" class="z-50 mx-auto">
-			<Logo class="h-7 py-1 pt-2 px-2 bg-light inline" />
+		<a href={data.uid ? '/profile' : '/'} class="z-50 mx-auto">
+			<YuzuParty class="h-7 py-1 pt-2 px-2 bg-light inline" />
 		</a>
 
 		{#if data.uid}
@@ -99,6 +96,4 @@
 			</svg>
 		</a>
 	</div>
-
-	<Toast />
 </div>

@@ -3,14 +3,9 @@
 	import { fly } from 'svelte/transition';
 	import { invalidateAll } from '$app/navigation';
 
-	import Layout from '$lib/components/Layout.svelte';
-	import { add } from '$lib/components/Toast/store';
+	import { Layout, Marker, Edit, Calendar, User, ExternalLink } from '$lib/components';
+	import { toast } from '@zerodevx/svelte-toast';
 	import Widget from '../signin/widget.svelte';
-	import Marker from '$lib/components/icons/Marker.svelte';
-	import Edit from '$lib/components/icons/Edit.svelte';
-	import Calendar from '$lib/components/icons/Calendar.svelte';
-	import User from '$lib/components/icons/User.svelte';
-	import ExternalLink from '$lib/components/icons/ExternalLink.svelte';
 
 	export let data;
 
@@ -37,10 +32,10 @@
 
 		if (!resp.ok) {
 			status = data.party?.attendees?.[data.uid]?.status;
-			add('Something went wrong');
+			toast.push('Something went wrong');
 		}
 
-		if (newStatus === 'request') add("You've requested to join");
+		if (newStatus === 'request') toast.push("You've requested to join");
 
 		showSection = '';
 		showRSVP = false;
@@ -58,7 +53,7 @@
 			navigator.share({ title: data.party?.name, url: partyURL });
 		} else {
 			navigator.clipboard.writeText(partyURL);
-			add('Link copied to clipboard');
+			toast.push('Link copied to clipboard');
 		}
 	};
 

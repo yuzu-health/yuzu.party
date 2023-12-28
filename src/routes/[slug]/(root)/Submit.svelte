@@ -1,8 +1,7 @@
 <script lang="ts">
-	import { add } from '$lib/components/Toast';
+	import { toast } from '@zerodevx/svelte-toast';
 	import { page } from '$app/stores';
-	import Send from '$lib/components/icons/Send.svelte';
-	import Phone from '$lib/components/icons/Phone.svelte';
+	import { Send, Phone } from '$lib/components';
 
 	let clazz = '';
 	export { clazz as class };
@@ -20,7 +19,7 @@
 				body: JSON.stringify({ partyId: $page.data.party?.id, message, textAlert })
 			});
 		} catch (e) {
-			add('Error sending message');
+			toast.push('Error sending message');
 		}
 
 		sending = false;

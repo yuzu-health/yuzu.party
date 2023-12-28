@@ -5,10 +5,8 @@
 
 	import { invalidateAll } from '$app/navigation';
 	import { auth } from '$lib/firebase';
-	import { add } from '$lib/components/Toast';
-	import ProfilePic from '$lib/components/ProfilePic.svelte';
-	import Layout from '$lib/components/Layout.svelte';
-	import Camera from '$lib/components/icons/Camera.svelte';
+	import { toast } from '@zerodevx/svelte-toast';
+	import { ProfilePic, Layout, Camera } from '$lib/components';
 
 	export let data;
 
@@ -47,9 +45,9 @@
 			await fetch('/api/profile', { method: 'POST', body: formData });
 			if (files?.[0]) window.location.reload();
 			else invalidateAll();
-			add('Profile updated!');
+			toast.push('Profile updated!');
 		} catch (e) {
-			add('Error updating profile');
+			toast.push('Error updating profile');
 			console.error(e);
 		}
 
@@ -137,7 +135,9 @@
 	>
 		<div class="yuzui-row">
 			<div class="yuzui p-2 font-medium w-full -mr-[1px]">Profile</div>
-			<button type="button" class="yuzui whitespace-pre" on:click={onLogout}> Sign out </button>
+			<button type="button" class="yuzui whitespace-pre !px-4" on:click={onLogout}>
+				Sign out
+			</button>
 		</div>
 
 		<div class="yuzui !border-b-0 overflow-y-auto h-full -mt-[1px] p-4 flex gap-4 flex-col">

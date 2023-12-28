@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Trash from '$lib/components/icons/Trash.svelte';
+	import { Trash } from '$lib/components/icons';
 	import { fly } from 'svelte/transition';
 	import compress from 'browser-image-compression';
 	import { goto } from '$app/navigation';
