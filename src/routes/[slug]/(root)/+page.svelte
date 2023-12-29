@@ -2,7 +2,7 @@
 	import { tick } from 'svelte';
 	import { fade } from 'svelte/transition';
 	import { signInWithCustomToken } from 'firebase/auth';
-	import { collection, onSnapshot, limit, query } from 'firebase/firestore';
+	import { collection, onSnapshot, query } from 'firebase/firestore';
 
 	import { db, auth } from '$lib/firebase';
 	import { page } from '$app/stores';
@@ -126,7 +126,7 @@
 		<div in:fade|local={{ delay: 300 }}>
 			{#each messages.slice(-messageLimit) as message (message.id)}
 				{#if data.party?.attendees?.[message.uid]?.status !== 'block' && !deletedMessages[message.id]}
-					<div class="message flex border-b" class:pointer-events-none={message.hidden}>
+					<div class="group flex border-b" class:pointer-events-none={message.hidden}>
 						<ProfilePic
 							uid={message.uid}
 							name={data.party?.attendees?.[message.uid]?.name || ''}
@@ -148,7 +148,7 @@
 								</span>
 								{#if data.party?.hosts.includes(data.uid) || (data.uid === message.uid && !message.alert)}
 									<button
-										class="delete-button ml-auto transition-opacity active:!opacity-50"
+										class="group-hover:opacity-100 opacity-0 ml-auto transition-opacity active:!opacity-50"
 										on:click={() => onDeleteMessage(message.blockId, message.id)}
 									>
 										<Trash class="h-3 w-3" />
@@ -192,13 +192,3 @@
 {/if}
 
 <Submit class="sticky bottom-0 z-10  h-12 shrink-0 flex" />
-
-<style>
-	.delete-button {
-		opacity: 0;
-	}
-
-	.message:hover .delete-button {
-		opacity: 100;
-	}
-</style>

@@ -47,6 +47,19 @@
 		goto(`/${id}`);
 	};
 
+	const onDelete = async () => {
+		loading = true;
+
+		await fetch(`/api/party/create`, {
+			method: 'DELETE',
+			body: JSON.stringify({ partyId: data?.party?.id })
+		});
+
+		loading = false;
+		$store = {};
+		goto('/profile');
+	};
+
 	$: ready = $store.name && $store.date;
 </script>
 
@@ -69,22 +82,7 @@
 			</div>
 		{:else if showDelete}
 			<div class="yuzui-row">
-				<button
-					class="yuzui w-full -mr-[1px]"
-					type="button"
-					on:click={async () => {
-						loading = true;
-
-						await fetch(`/api/party/create`, {
-							method: 'DELETE',
-							body: JSON.stringify({ partyId: data?.party?.id })
-						});
-
-						loading = false;
-						$store = {};
-						goto('/profile');
-					}}
-				>
+				<button class="yuzui w-full -mr-[1px]" type="button" on:click={onDelete}>
 					Confirm delete?
 				</button>
 				<button class="yuzui w-full" on:click={() => (showDelete = false)}>Cancel</button>
