@@ -7,10 +7,6 @@
 		-webkit-tap-highlight-color: transparent;
 	}
 
-	body {
-		@apply text-primary bg-light min-h-full w-full overflow-hidden fixed;
-	}
-
 	a {
 		@apply transition-opacity duration-100 ease-in-out active:opacity-50;
 		-webkit-touch-callout: none;
@@ -23,8 +19,6 @@
 
 	button {
 		@apply disabled:text-primary active:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed disabled:text-opacity-50;
-		-webkit-appearance: none;
-		-moz-appearance: none;
 		appearance: none;
 	}
 
@@ -41,8 +35,6 @@
 	}
 
 	[type='datetime-local'] {
-		-webkit-appearance: none;
-		-moz-appearance: none;
 		appearance: none;
 	}
 
@@ -61,7 +53,8 @@
 }
 
 @layer utilities {
-	.disabled {
+	.disabled,
+	:disabled {
 		@apply pointer-events-none cursor-not-allowed text-primary text-opacity-50;
 	}
 }

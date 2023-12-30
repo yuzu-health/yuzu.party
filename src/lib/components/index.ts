@@ -1,4 +1,5 @@
 export * from './icons';
+export { default as Header } from './Header.svelte';
 export { default as Footer } from './Footer.svelte';
 export { default as Layout } from './Layout.svelte';
 export { default as ProfilePic } from './ProfilePic.svelte';

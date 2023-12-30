@@ -5,7 +5,7 @@
 	let previousPage: string;
 	afterNavigate(({ from }) => {
 		previousPage =
-			!from?.url.pathname || from?.url?.pathname === '/' ? '/profile' : from?.url.pathname;
+			!from?.url.pathname || from?.url?.pathname === '/create' ? '/profile' : from?.url.pathname;
 	});
 </script>
 
@@ -14,9 +14,5 @@
 </svelte:head>
 
 <div class="h-screen max-w-lg mx-auto flex flex-col justify-center p-4">
-	<SignIn
-		on:signin={() => {
-			goto(previousPage || '/profile');
-		}}
-	/>
+	<SignIn on:signin={() => goto(previousPage || '/profile')} />
 </div>

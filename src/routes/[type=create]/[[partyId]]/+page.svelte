@@ -37,15 +37,15 @@
 	<label class="relative">
 		{#if src}
 			<img
-				class="yuzui-bg-dots h-56 w-full max-w-[32rem] object-cover text-primary text-opacity-30"
+				class="yuzui-bg-dots h-56 w-full max-w-[32rem] object-cover text-primary/30"
 				src={$store.files?.[0] ? URL.createObjectURL($store.files?.[0]) : $store.image}
 				alt="Cover"
 			/>
 		{:else}
 			<div
-				class="yuzui-bg-dots h-56 w-full max-w-[32rem] text-primary text-opacity-30 flex items-center justify-center cursor-pointer"
+				class="yuzui-bg-dots h-56 w-full max-w-[32rem] text-primary/30 flex items-center justify-center cursor-pointer"
 			>
-				<Camera class="w-6 h-6 text-opacity-100 text-primary" />
+				<Camera class="w-6 h-6 text-primary/100" />
 			</div>
 		{/if}
 		<input class="hidden" name="image" type="file" accept="image/*" bind:files={$store.files} />

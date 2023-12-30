@@ -140,10 +140,7 @@
 								{#if data.party?.hosts.includes(message.uid)}
 									<span class="text-sm font-medium text-accent"> HOST </span>
 								{/if}
-								<span
-									class="text-sm font-light text-primary text-opacity-50"
-									class:bg-primary={message.hidden}
-								>
+								<span class="text-sm font-light text-primary/50" class:bg-primary={message.hidden}>
 									{timeSince(new Date(message.timestamp))} ago
 								</span>
 								{#if data.party?.hosts.includes(data.uid) || (data.uid === message.uid && !message.alert)}
