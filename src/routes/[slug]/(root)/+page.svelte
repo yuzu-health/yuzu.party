@@ -32,6 +32,8 @@
 			messages = undefined;
 			loadingMessage = 'RSVP to see and send messages';
 			return;
+		} else if (data.party.attendees?.[data.uid]?.status === 'request') {
+			loadingMessage = 'Waiting for host approval';
 		}
 
 		if (!auth.currentUser) await signInWithCustomToken(auth, data.token);
