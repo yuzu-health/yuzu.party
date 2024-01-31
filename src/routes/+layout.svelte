@@ -9,6 +9,7 @@
 	let theme = 0;
 	if (browser) theme = Number(localStorage.getItem('theme') || 0);
 	$: if (browser) localStorage.setItem('theme', String(theme));
+	$: pathname = data.pathname.split('/')[1];
 </script>
 
 <div class="all-flush contents yuzui-theme yuzui-theme-{theme} -with-panel">
@@ -24,7 +25,7 @@
 
 	<Header uid={data.uid} bind:theme />
 
-	{#key data.pathname}
+	{#key pathname}
 		<div class="yuzui-fadein">
 			<slot />
 		</div>
