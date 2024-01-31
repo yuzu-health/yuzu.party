@@ -133,7 +133,7 @@
 		contenteditable="true"
 		data-placeholder="Description"
 		class="w-full resize-none h-full min-h-[3.5rem] outline-0"
-		bind:textContent={$store.description}
+		bind:innerText={$store.description}
 		placeholder="Description"
 	/>
 </div>
