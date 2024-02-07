@@ -155,7 +155,7 @@
 					{/if}
 				</div>
 
-				<div class="whitespace-pre-wrap">{data.party?.description || ''}</div>
+				<div class="whitespace-pre-wrap break-words">{data.party?.description || ''}</div>
 			</div>
 		</div>
 
