@@ -99,7 +99,7 @@
 		<div class="yuzui overflow-y-auto flex flex-col h-full">
 			{#if data.party?.image}
 				<img
-					class="w-full h-56 object-cover border-b border-panel"
+					class="w-full h-56 aspect-[5/2] object-cover border-b border-panel"
 					alt="Cover"
 					src={data.party?.image}
 				/>
