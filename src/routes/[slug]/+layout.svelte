@@ -61,6 +61,7 @@
 		!date
 			? ''
 			: new Date(date).toLocaleString(undefined, {
+					timeZone: data.party?.timezone,
 					weekday: 'short',
 					month: 'long',
 					day: 'numeric',
@@ -75,7 +76,11 @@
 			: generateDateString(data.party?.end);
 
 	$: timezone = new Date()
-		?.toLocaleDateString(undefined, { day: '2-digit', timeZoneName: 'long' })
+		?.toLocaleDateString(undefined, {
+			day: '2-digit',
+			timeZone: data.party?.timezone,
+			timeZoneName: 'long'
+		})
 		?.substring(4)
 		?.match(/\b(\w)/g)
 		?.join('');
