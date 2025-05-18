@@ -13,7 +13,7 @@ export const GET = async () => {
 	now.setMinutes(0);
 	now.setSeconds(0);
 	now.setMilliseconds(0);
-	now.setDate(now.getDate() + 1);
+	now.setDate(now.getDate());
 	const timestamp = now.getTime();
 
 	const later = new Date();
@@ -21,7 +21,7 @@ export const GET = async () => {
 	later.setMinutes(0);
 	later.setSeconds(0);
 	later.setMilliseconds(0);
-	later.setDate(later.getDate() + 2);
+	later.setDate(later.getDate() + 1);
 	const laterTimestamp = later.getTime();
 
 	const parties = await db
