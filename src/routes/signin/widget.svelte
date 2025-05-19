@@ -242,7 +242,7 @@
 				inputmode="numeric"
 			/>
 		</div>
-		<div class="flex gap-2">
+		<div class="flex">
 			<button type="button" class="yuzui secondary" on:click={resetForm}> Back </button>
 			<button type="submit" class="yuzui grow" class:loading disabled={loading}> Confirm </button>
 		</div>
