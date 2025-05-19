@@ -10,9 +10,10 @@
 	let phoneNumber = '';
 	let code = '';
 	let loading = false;
-	let result: { confirmationResult: ConfirmationResult; ok: boolean };
+	let result: { confirmationResult: ConfirmationResult; ok: boolean } | null = null;
 	let name = '';
 	let countryCode = '1';
+	let recaptchaVerifier: RecaptchaVerifier | null = null;
 
 	let phoneRef: HTMLInputElement;
 	let nameRef: HTMLInputElement;
@@ -22,47 +23,141 @@
 
 	onMount(() => {
 		phoneRef?.focus();
-		window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-div', { size: 'invisible' });
-		window.recaptchaVerifier.render();
+		initializeRecaptcha();
+
 		return () => {
-			window.recaptchaVerifier.clear();
+			resetRecaptcha();
 		};
 	});
 
+	const initializeRecaptcha = () => {
+		try {
+			resetRecaptcha();
+
+			recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-div', {
+				size: 'invisible',
+				'expired-callback': () => {
+					// Reset if expired
+					resetRecaptcha();
+					initializeRecaptcha();
+					toast.push('Verification expired, please try again');
+				}
+			});
+		} catch (error) {
+			console.error('reCAPTCHA initialization error:', error);
+			toast.push('Error setting up verification');
+		}
+	};
+
+	// Reset reCAPTCHA
+	const resetRecaptcha = () => {
+		if (recaptchaVerifier) {
+			try {
+				recaptchaVerifier.clear();
+			} catch (error) {
+				console.error('Error clearing reCAPTCHA:', error);
+			}
+			recaptchaVerifier = null;
+		}
+
+		const recaptchaDiv = document.getElementById('recaptcha-div');
+		if (recaptchaDiv) recaptchaDiv.innerHTML = '';
+	};
+
 	const onSubmit = async () => {
 		loading = true;
+
 		try {
-			result = await onPhoneSubmit('+' + countryCode + phoneNumber);
+			// Ensure we have a fresh reCAPTCHA instance
+			if (!recaptchaVerifier) {
+				initializeRecaptcha();
+				await tick();
+			}
+
+			// Format phone with country code
+			const formattedPhone = '+' + countryCode + phoneNumber.replace(/\D/g, '');
+
+			result = await onPhoneSubmit(formattedPhone);
 			await tick();
+
+			// Focus the appropriate field after successful submission
 			if (nameRef) nameRef.focus();
 			else if (codeRef) codeRef.focus();
-		} catch (e) {
-			console.log(e);
-			toast.push('There was an issue verifiying your number');
+		} catch (error: any) {
+			console.error('Phone verification error:', error);
+			const errorMessage = error?.message || 'There was an issue verifying your number';
+			toast.push(errorMessage);
+
+			// Reset reCAPTCHA for another attempt
+			resetRecaptcha();
+			initializeRecaptcha();
 		}
+
 		loading = false;
 	};
 
 	const onPhoneSubmit = async (phone: string) => {
-		const appVerifier = window.recaptchaVerifier;
-		const confirmationResult = await signInWithPhoneNumber(auth, phone, appVerifier);
-		const resp = await fetch('/api/auth', { headers: { 'x-phone-number': phone } });
-		const { message } = await resp.json();
-		return { confirmationResult, ok: message === 'ok' };
+		if (!recaptchaVerifier) throw new Error('reCAPTCHA not initialized');
+
+		try {
+			const appVerifier = recaptchaVerifier;
+			const confirmationResult = await signInWithPhoneNumber(auth, phone, appVerifier);
+
+			// Check with backend
+			const resp = await fetch('/api/auth', {
+				headers: { 'x-phone-number': phone },
+				method: 'GET'
+			});
+
+			if (!resp.ok) {
+				throw new Error('Server validation failed');
+			}
+
+			const { message } = await resp.json();
+			return { confirmationResult, ok: message === 'ok' };
+		} catch (error) {
+			// Reset reCAPTCHA on error
+			resetRecaptcha();
+			initializeRecaptcha();
+			throw error;
+		}
 	};
 
 	const onCodeSubmit = async (
-		code: string,
-		name: string,
+		verificationCode: string,
+		userName: string,
 		confirmationResult: ConfirmationResult
 	) => {
-		const userCred = await confirmationResult.confirm(code);
-		await fetch('/api/auth', {
-			method: 'POST',
-			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({ name, idToken: await userCred.user.getIdToken() })
-		});
-		return userCred;
+		try {
+			const userCred = await confirmationResult.confirm(verificationCode);
+
+			// Update user profile on backend
+			const response = await fetch('/api/auth', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({
+					name: userName,
+					idToken: await userCred.user.getIdToken()
+				})
+			});
+
+			if (!response.ok) throw new Error('Failed to update user profile');
+
+			return userCred;
+		} catch (error) {
+			// Pass the error up to be handled by the caller
+			throw error;
+		}
+	};
+
+	// Function to reset the form and start over
+	const resetForm = () => {
+		result = null;
+		code = '';
+		loading = false;
+		resetRecaptcha();
+		initializeRecaptcha();
+		phoneRef?.focus();
 	};
 </script>
 
@@ -81,7 +176,7 @@
 						// @ts-ignore
 						e.target.textContent = e.target.textContent.slice(0, 3);
 						// @ts-ignore
-						countryCode = e.target.textContent;
+						countryCode = e.target.textContent || '1'; // Default to 1 if empty
 					}}
 				>
 					1
@@ -102,7 +197,7 @@
 				}}
 			/>
 		</div>
-		<button class="yuzui" class:loading> Sign In </button>
+		<button type="submit" class="yuzui" class:loading disabled={loading}> Sign In </button>
 	</form>
 {:else}
 	<form
@@ -111,9 +206,11 @@
 			loading = true;
 
 			try {
+				if (!result) throw new Error('No confirmation result available');
 				await onCodeSubmit(code, name, result.confirmationResult);
 				dispatch('signin');
-			} catch (e) {
+			} catch (error) {
+				console.error('Code verification error:', error);
 				code = '';
 				toast.push('Invalid code');
 				loading = false;
@@ -141,9 +238,14 @@
 				placeholder="Confirmation Code"
 				maxlength="6"
 				bind:value={code}
+				pattern="[0-9]*"
+				inputmode="numeric"
 			/>
 		</div>
-		<button class="yuzui" class:loading> Confirm </button>
+		<div class="flex gap-2">
+			<button type="button" class="yuzui secondary" on:click={resetForm}> Back </button>
+			<button type="submit" class="yuzui grow" class:loading disabled={loading}> Confirm </button>
+		</div>
 	</form>
 {/if}
 
